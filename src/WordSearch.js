@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import './WordSearch.css';
 import SearchResult from './SearchResult';
 import {GOOGLE_CUSTOM_SEARCH_API_KEY} from './apikeys.js';
+import {GOOGLE_CUSTOM_SEARCH_ENGINE_ID} from './apikeys.js';
 
 // WordSearch
 class WordSearch extends Component {
@@ -58,7 +59,9 @@ class WordSearch extends Component {
     const response = await fetch(
       'https://www.googleapis.com/customsearch/v1' +
       '?key=' + GOOGLE_CUSTOM_SEARCH_API_KEY + 
-      '&searchType=image&q=' + query);
+      '&cx=' + GOOGLE_CUSTOM_SEARCH_ENGINE_ID + 
+      '&searchType=image' +
+      '&q=' + query);
     const json = await response.json();
     let urls = [];
     for (let i = 0; i < json.items.length; i++) {
