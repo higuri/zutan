@@ -1,0 +1,18 @@
+.result_cell {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+}
+.result_image {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+.plus_icon {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  right: 10px;
+  bottom: 10px;
+}

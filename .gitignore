@@ -1,0 +1,15 @@
+# dependencies
+/node_modules
+
+# firebase
+/.firebase
+/.firebaserc
+
+# sensitive
+/src/apikeys.js
+
+# production
+/build
+
+# misc
+.DS_Store
