@@ -15,8 +15,14 @@ class SearchResult extends Component {
       const url = this.props.imageUrls[i];
       imageUrls.push(url);
       if ((i !== 0 && (i+1) % 5 === 0) || i === this.props.imageUrls.length - 1) {
+        const iRows = resultRows.length;
         resultRows.push(
-          <ResultRow key={i.toString()} imageUrls={imageUrls} />
+          <ResultRow
+            key={i.toString()}
+            imageUrls={imageUrls}
+            onImageClicked={
+              (iCells) => this.props.onImageClicked(iRows, iCells)
+            } />
         );
         imageUrls = [];
       }

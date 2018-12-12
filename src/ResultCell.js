@@ -8,13 +8,17 @@ class ResultCell extends Component {
 
   // render()
   render() {
+    // TODO: button style
     return (
       <div className="result_cell">
-        <img
-          className="result_image"
-          src={this.props.imageUrl}
-          alt="search result">
-        </img>
+        <button
+          onClick={this.props.onImageClicked}>
+          <img
+            className="result_image"
+            src={this.props.imageUrl}
+            alt="search result">
+          </img>
+        </button>
       </div>
     );
   }

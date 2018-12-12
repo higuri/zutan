@@ -6,6 +6,15 @@ import SearchResult from './SearchResult';
 import {GOOGLE_CUSTOM_SEARCH_API_KEY} from './apikeys.js';
 import {GOOGLE_CUSTOM_SEARCH_ENGINE_ID} from './apikeys.js';
 
+// ImageUrl
+class ImageUrl {
+  // ImageUrl
+  constructor(fullsize, thumbnail) {
+    this.fullsize = fullsize;
+    this.thumbnail = thumbnail;
+  }
+}
+
 // WordSearch
 class WordSearch extends Component {
 
@@ -18,10 +27,14 @@ class WordSearch extends Component {
     };
     this.onTextInputChanged = this.onTextInputChanged.bind(this);
     this.onZuButtonClicked = this.onZuButtonClicked.bind(this);
+    this.onImageClicked = this.onImageClicked.bind(this);
   }
 
   // render()
   render() {
+    const thumbnailUrls = this.state.imageUrls.map(
+      (url) => url.thumbnail
+    );
     return (
       <div>
         <div className="search_form">
@@ -38,8 +51,8 @@ class WordSearch extends Component {
           </button>
         </div>
         <SearchResult
-          imageUrls={this.state.imageUrls}>
-        </SearchResult>
+          imageUrls={thumbnailUrls}
+          onImageClicked={this.onImageClicked} />
       </div>
     );
   }
@@ -54,6 +67,14 @@ class WordSearch extends Component {
     this.setState({queryText: evt.target.value});
   }
 
+  // onImageClicked()
+  onImageClicked(iRows, iCells) {
+    console.log('WordSearch.onImageClicked: ', iRows, iCells);
+    const iImages = iRows * 5 + iCells;
+    const imageUrl = this.state.imageUrls[iImages];
+    console.log('-> ', imageUrl.fullsize);
+  }
+
   // startImageSearch()
   async startImageSearch(query) {
     const response = await fetch(
@@ -63,11 +84,13 @@ class WordSearch extends Component {
       '&searchType=image' +
       '&q=' + query);
     const json = await response.json();
+    // console.log(json);
     let urls = [];
     for (let i = 0; i < json.items.length; i++) {
       const item = json.items[i];
-      const imageURL = item.image.thumbnailLink;
-      urls.push(imageURL);
+      urls.push(new ImageUrl(
+        item.link, item.image.thumbnailLink)
+      );
     }
     console.log(urls.length);
     this.setState({imageUrls: urls});
