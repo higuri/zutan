@@ -6,7 +6,7 @@
 /.firebaserc
 
 # sensitive
-/src/apikeys.js
+/src/apikeys.tsx
 
 # production
 /build

@@ -1,9 +1,11 @@
+// index.tsx
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as firebase from 'firebase';
 import './index.css';
 import App from './App';
-import {GOOGLE_FIREBASE_API_KEY} from './apikeys.js';
+import {GOOGLE_FIREBASE_API_KEY} from './apikeys';
 
 const config = {
   apiKey: GOOGLE_FIREBASE_API_KEY,

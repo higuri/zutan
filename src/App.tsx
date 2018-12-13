@@ -1,4 +1,4 @@
-// App.js
+// App.tsx
 
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
@@ -8,7 +8,10 @@ import WordSearch from './WordSearch';
 import logoImage from './images/logo.png';
 
 // App
-class App extends Component {
+interface AppState {
+  isSignedIn: boolean;
+}
+class App extends Component<any, AppState> {
 
   // App()
   constructor(props) {

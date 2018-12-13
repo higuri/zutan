@@ -1,10 +1,14 @@
-// ResultCell
+// ResultCell.tsx
 
 import React, { Component } from 'react';
 import './ResultCell.css';
 
 // ResultCell
-class ResultCell extends Component {
+interface ResultCellProps {
+  imageURL: string;
+  onImageClicked: () => void;
+}
+class ResultCell extends Component<ResultCellProps> {
 
   // render()
   render() {
@@ -15,7 +19,7 @@ class ResultCell extends Component {
           onClick={this.props.onImageClicked}>
           <img
             className="result_image"
-            src={this.props.imageUrl}
+            src={this.props.imageURL}
             alt="search result">
           </img>
         </button>

@@ -1,30 +1,34 @@
-// SearchResult.js
+// SearchResult.tsx
 
 import React, { Component } from 'react';
 import './SearchResult.css';
 import ResultRow from './ResultRow';
 
 // SearchResult
-class SearchResult extends Component {
+interface SearchResultProps {
+  imageURLs: string[];
+  onImageClicked: (iRows: number, iCells: number) => void;
+}
+class SearchResult extends Component<SearchResultProps> {
 
   // render()
   render() {
-    let resultRows = [];
-    let imageUrls = [];
-    for (let i = 0; i < this.props.imageUrls.length; i++) {
-      const url = this.props.imageUrls[i];
-      imageUrls.push(url);
-      if ((i !== 0 && (i+1) % 5 === 0) || i === this.props.imageUrls.length - 1) {
+    let resultRows: JSX.Element[] = [];
+    let imageURLs: string[] = [];
+    for (let i = 0; i < this.props.imageURLs.length; i++) {
+      const url = this.props.imageURLs[i];
+      imageURLs.push(url);
+      if ((i !== 0 && (i+1) % 5 === 0) || i === this.props.imageURLs.length - 1) {
         const iRows = resultRows.length;
         resultRows.push(
           <ResultRow
             key={i.toString()}
-            imageUrls={imageUrls}
+            imageURLs={imageURLs}
             onImageClicked={
               (iCells) => this.props.onImageClicked(iRows, iCells)
             } />
         );
-        imageUrls = [];
+        imageURLs = [];
       }
     }
     return (

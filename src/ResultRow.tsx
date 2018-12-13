@@ -1,18 +1,22 @@
-// ResultRow
+// ResultRow.tsx
 
 import React, { Component } from 'react';
 import './ResultRow.css';
 import ResultCell from './ResultCell';
 
 // ResultRow
-class ResultRow extends Component {
+interface ResultRowProps {
+  imageURLs: string[];
+  onImageClicked: (number) => void;
+}
+class ResultRow extends Component<ResultRowProps> {
 
   // render()
   render() {
-    const resultCells = this.props.imageUrls.map((url, i) =>
+    const resultCells = this.props.imageURLs.map((url, i) =>
       <ResultCell
         key={i.toString()}
-        imageUrl={url}
+        imageURL={url}
         onImageClicked={() => this.props.onImageClicked(i)} />
     );
     return <div className="result_row">{resultCells}</div>;

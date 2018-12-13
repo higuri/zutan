@@ -1,29 +1,33 @@
-// WordSearch.js
+// WordSearch.tsx
 
 import React, { Component } from 'react';
 import './WordSearch.css';
 import SearchResult from './SearchResult';
-import {GOOGLE_CUSTOM_SEARCH_API_KEY} from './apikeys.js';
-import {GOOGLE_CUSTOM_SEARCH_ENGINE_ID} from './apikeys.js';
+import {GOOGLE_CUSTOM_SEARCH_API_KEY} from './apikeys';
+import {GOOGLE_CUSTOM_SEARCH_ENGINE_ID} from './apikeys';
 
-// ImageUrl
-class ImageUrl {
-  // ImageUrl
-  constructor(fullsize, thumbnail) {
+// ImageURL
+class ImageURL {
+  // ImageURL
+  constructor(public fullsize, public thumbnail) {
     this.fullsize = fullsize;
     this.thumbnail = thumbnail;
   }
 }
 
 // WordSearch
-class WordSearch extends Component {
+interface WordSearchState {
+  queryText: string;
+  imageURLs: ImageURL[];
+}
+class WordSearch extends Component<any, WordSearchState> {
 
   // WordSearch
   constructor(props) {
     super(props);
     this.state = {
       queryText: '',
-      imageUrls: []
+      imageURLs: []
     };
     this.onTextInputChanged = this.onTextInputChanged.bind(this);
     this.onZuButtonClicked = this.onZuButtonClicked.bind(this);
@@ -32,7 +36,7 @@ class WordSearch extends Component {
 
   // render()
   render() {
-    const thumbnailUrls = this.state.imageUrls.map(
+    const thumbnailURLs = this.state.imageURLs.map(
       (url) => url.thumbnail
     );
     return (
@@ -51,7 +55,7 @@ class WordSearch extends Component {
           </button>
         </div>
         <SearchResult
-          imageUrls={thumbnailUrls}
+          imageURLs={thumbnailURLs}
           onImageClicked={this.onImageClicked} />
       </div>
     );
@@ -71,8 +75,8 @@ class WordSearch extends Component {
   onImageClicked(iRows, iCells) {
     console.log('WordSearch.onImageClicked: ', iRows, iCells);
     const iImages = iRows * 5 + iCells;
-    const imageUrl = this.state.imageUrls[iImages];
-    console.log('-> ', imageUrl.fullsize);
+    const imageURL = this.state.imageURLs[iImages];
+    console.log('-> ', imageURL.fullsize);
   }
 
   // startImageSearch()
@@ -85,15 +89,15 @@ class WordSearch extends Component {
       '&q=' + query);
     const json = await response.json();
     // console.log(json);
-    let urls = [];
+    let urls: ImageURL[] = [];
     for (let i = 0; i < json.items.length; i++) {
       const item = json.items[i];
-      urls.push(new ImageUrl(
+      urls.push(new ImageURL(
         item.link, item.image.thumbnailLink)
       );
     }
     console.log(urls.length);
-    this.setState({imageUrls: urls});
+    this.setState({imageURLs: urls});
   }
 }
 

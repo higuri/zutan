@@ -1,10 +1,18 @@
+// SignIn.tsx
+
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import * as firebaseui from 'firebaseui';
 import 'firebaseui/dist/firebaseui.css';
 
 // SignIn
-class SignIn extends Component {
+interface SignInState {
+  firebaseUIShown: boolean;
+}
+class SignIn extends Component<any, SignInState> {
+
+  // firebaseUI:
+  private firebaseUI: firebaseui.auth.AuthUI;
 
   // firebaseUIConfig
   firebaseUIConfig = {
@@ -31,6 +39,7 @@ class SignIn extends Component {
     this.state = {
       firebaseUIShown: false
     }
+    this.firebaseUI = new firebaseui.auth.AuthUI(firebase.auth());
   }
 
   // render()
@@ -46,14 +55,12 @@ class SignIn extends Component {
 
   // componentDidMount()
   componentDidMount() {
-    this.firebaseUI = new firebaseui.auth.AuthUI(firebase.auth());
     this.startFirebaseUI();
   }
 
   // componentWillUnmount()
   componentWillUnmount() {
     this.stopFirebaseUI();
-    this.firebaseUI = null;
   }
 
   // startFirebaseUI()
