@@ -1,6 +1,9 @@
 // WordSearch.tsx
 
 import React, { Component } from 'react';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import TextField from '@material-ui/core/TextField';
 import './WordSearch.css';
 import SearchResult from './SearchResult';
 import {GOOGLE_CUSTOM_SEARCH_API_KEY} from './apikeys';
@@ -19,6 +22,7 @@ class ImageURL {
 interface WordSearchState {
   queryText: string;
   imageURLs: ImageURL[];
+  iSelectedImageURL: number | null;
 }
 class WordSearch extends Component<any, WordSearchState> {
 
@@ -27,36 +31,48 @@ class WordSearch extends Component<any, WordSearchState> {
     super(props);
     this.state = {
       queryText: '',
-      imageURLs: []
+      imageURLs: [],
+      iSelectedImageURL: null
     };
     this.onTextInputChanged = this.onTextInputChanged.bind(this);
     this.onZuButtonClicked = this.onZuButtonClicked.bind(this);
     this.onImageClicked = this.onImageClicked.bind(this);
+    this.onDialogClosed = this.onDialogClosed.bind(this);
   }
 
   // render()
+  // TODO: textfield, button styling (withStyles())
   render() {
     const thumbnailURLs = this.state.imageURLs.map(
       (url) => url.thumbnail
     );
+    // TODO: cleanup img src (dialog)
+    //       img styling
     return (
       <div>
         <div className="search_form">
-          <input
-            className="search_text"
-            type="text"
+					<TextField
+						margin="normal"
+						variant="outlined"
             value={this.state.queryText}
-            onChange={this.onTextInputChanged}>
-          </input>
-          <button
-            className="search_button"
+            onChange={this.onTextInputChanged}
+					/>
+          <Button
+            variant="contained"
+            color="default"
             onClick={this.onZuButtonClicked}>
             ZU
-          </button>
+          </Button>
         </div>
         <SearchResult
           imageURLs={thumbnailURLs}
-          onImageClicked={this.onImageClicked} />
+          onImageClicked={this.onImageClicked}
+				/>
+        <Dialog
+          open={this.state.iSelectedImageURL !== null}
+          onClose={this.onDialogClosed}>
+          <img src={this.state.iSelectedImageURL === null ? "" : this.state.imageURLs[this.state.iSelectedImageURL!].fullsize} />
+        </Dialog>
       </div>
     );
   }
@@ -74,9 +90,13 @@ class WordSearch extends Component<any, WordSearchState> {
   // onImageClicked()
   onImageClicked(iRows, iCells) {
     console.log('WordSearch.onImageClicked: ', iRows, iCells);
-    const iImages = iRows * 5 + iCells;
-    const imageURL = this.state.imageURLs[iImages];
-    console.log('-> ', imageURL.fullsize);
+    const i = iRows * 5 + iCells;
+    this.setState({iSelectedImageURL: i});
+  }
+
+  // onDialogClosed()
+  onDialogClosed() {
+    this.setState({iSelectedImageURL: null});
   }
 
   // startImageSearch()
