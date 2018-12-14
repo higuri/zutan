@@ -1,13 +1,21 @@
 // WordSearch.tsx
 
 import React, { Component } from 'react';
+import styled from 'styled-components';
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import TextField from '@material-ui/core/TextField';
-import './WordSearch.css';
 import SearchResult from './SearchResult';
 import {GOOGLE_CUSTOM_SEARCH_API_KEY} from './apikeys';
 import {GOOGLE_CUSTOM_SEARCH_ENGINE_ID} from './apikeys';
+import logoImage from './images/logo.png';
+
+// LogoImg
+const LogoImg = styled.img`
+  width: 100%;
+  height: auto;
+`;
 
 // ImageURL
 class ImageURL {
@@ -41,29 +49,45 @@ class WordSearch extends Component<any, WordSearchState> {
   }
 
   // render()
-  // TODO: textfield, button styling (withStyles())
   render() {
     const thumbnailURLs = this.state.imageURLs.map(
       (url) => url.thumbnail
     );
-    // TODO: cleanup img src (dialog)
-    //       img styling
+    // TODO: stop using <br> and 'style=' to styled-components
     return (
       <div>
-        <div className="search_form">
-					<TextField
-						margin="normal"
-						variant="outlined"
-            value={this.state.queryText}
-            onChange={this.onTextInputChanged}
-					/>
-          <Button
-            variant="contained"
-            color="default"
-            onClick={this.onZuButtonClicked}>
-            ZU
-          </Button>
-        </div>
+        <Grid
+          container
+          justify="center">
+          <Grid item xs={4}>
+            <LogoImg
+              src={logoImage}
+              alt="logo">
+            </LogoImg>
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          spacing={8}
+          alignItems="center"
+          justify="center">
+          <Grid item xs={6}>
+			  		<TextField
+              autoFocus={true}
+              fullWidth={true}
+			  			variant="outlined"
+              value={this.state.queryText}
+              onChange={this.onTextInputChanged}
+			  		/>
+          </Grid>   
+          <Grid item xs={2}>
+            <Button
+              variant="outlined"
+              onClick={this.onZuButtonClicked}>
+              ZU
+            </Button>
+          </Grid>   
+        </Grid> 
         <SearchResult
           imageURLs={thumbnailURLs}
           onImageClicked={this.onImageClicked}

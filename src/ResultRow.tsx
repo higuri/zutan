@@ -1,8 +1,16 @@
 // ResultRow.tsx
 
 import React, { Component } from 'react';
-import './ResultRow.css';
+import styled from 'styled-components';
 import ResultCell from './ResultCell';
+
+// ResultRowDiv
+const ResultRowDiv = styled.div`
+  width: 100%;
+  display: flex;
+  align-: center;
+  justify-content: center;
+`;
 
 // ResultRow
 interface ResultRowProps {
@@ -19,7 +27,11 @@ class ResultRow extends Component<ResultRowProps> {
         imageURL={url}
         onImageClicked={() => this.props.onImageClicked(i)} />
     );
-    return <div className="result_row">{resultCells}</div>;
+    return (
+      <ResultRowDiv>
+        {resultCells}
+      </ResultRowDiv>
+    );
   }
 }
 

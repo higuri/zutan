@@ -1,7 +1,22 @@
 // ResultCell.tsx
 
 import React, { Component } from 'react';
-import './ResultCell.css';
+import styled from 'styled-components'
+
+// ResultCellDiv
+const ResultCellDiv = styled.div`
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+`;
+
+// ResultImg
+const ResultImg = styled.img`
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+`;
 
 // ResultCell
 interface ResultCellProps {
@@ -14,16 +29,15 @@ class ResultCell extends Component<ResultCellProps> {
   render() {
     // TODO: button style
     return (
-      <div className="result_cell">
+      <ResultCellDiv>
         <button
           onClick={this.props.onImageClicked}>
-          <img
-            className="result_image"
+          <ResultImg
             src={this.props.imageURL}
             alt="search result">
-          </img>
+          </ResultImg>
         </button>
-      </div>
+      </ResultCellDiv>
     );
   }
 }

@@ -1,14 +1,22 @@
 // SearchResult.tsx
 
 import React, { Component } from 'react';
-import './SearchResult.css';
+import styled from 'styled-components'
 import ResultRow from './ResultRow';
 
-// SearchResult
+// SearchResultDiv 
+const SearchResultDiv = styled.div`
+  margin-top: 30px;
+  width: 100%;
+`;
+
+/// SearchResultProps
 interface SearchResultProps {
   imageURLs: string[];
   onImageClicked: (iRows: number, iCells: number) => void;
 }
+
+/// SearchResult
 class SearchResult extends Component<SearchResultProps> {
 
   // render()
@@ -32,9 +40,9 @@ class SearchResult extends Component<SearchResultProps> {
       }
     }
     return (
-      <div className="search_result">
+      <SearchResultDiv>
         {resultRows} 
-      </div>
+      </SearchResultDiv>
     );
   }
 }

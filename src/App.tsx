@@ -1,11 +1,16 @@
 // App.tsx
 
 import React, { Component } from 'react';
+import styled from 'styled-components'
 import * as firebase from 'firebase';
-import './App.css';
 import SignIn from './SignIn';
 import WordSearch from './WordSearch';
-import logoImage from './images/logo.png';
+
+// AppDiv
+const AppDiv = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 
 // App
 interface AppState {
@@ -25,16 +30,9 @@ class App extends Component<any, AppState> {
   render() {
     const isSignedIn = this.state.isSignedIn;
     return (
-      <div className="App">
-        <div className="logo">
-          <img
-            className="logo_img"
-            src={logoImage}
-            alt="logo">
-          </img>
-        </div>
+      <AppDiv>
         {isSignedIn ? <WordSearch /> : <SignIn />}
-      </div>
+      </AppDiv>
     );
   }
 
