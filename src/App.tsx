@@ -28,10 +28,13 @@ class App extends Component<any, AppState> {
 
   // render()
   render() {
-    const isSignedIn = this.state.isSignedIn;
+    const signInNeeded = this.props.isMock ?
+      false : !this.state.isSignedIn;
     return (
       <AppDiv>
-        {isSignedIn ? <WordSearch /> : <SignIn />}
+        {signInNeeded ?
+          <SignIn /> :
+          <WordSearch isMock={this.props.isMock} />}
       </AppDiv>
     );
   }

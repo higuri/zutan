@@ -10,11 +10,22 @@ import SearchResult from './SearchResult';
 import {GOOGLE_CUSTOM_SEARCH_API_KEY} from './apikeys';
 import {GOOGLE_CUSTOM_SEARCH_ENGINE_ID} from './apikeys';
 import logoImage from './images/logo.png';
+import mockItems from './mockItems';
 
 // LogoImg
 const LogoImg = styled.img`
+  display: block;
+  width: 30%;
+  height: auto;
+  margin: auto;
+`;
+// MockModeDiv
+const MockModeDiv = styled.div`
   width: 100%;
   height: auto;
+  text-align: center;
+  margin: 20px;
+  font-size: 20px;
 `;
 
 // ImageURL
@@ -50,22 +61,20 @@ class WordSearch extends Component<any, WordSearchState> {
 
   // render()
   render() {
+    const isMock = this.props.isMock;
     const thumbnailURLs = this.state.imageURLs.map(
       (url) => url.thumbnail
     );
-    // TODO: stop using <br> and 'style=' to styled-components
+    // TODO: styling with Grid
     return (
       <div>
-        <Grid
-          container
-          justify="center">
-          <Grid item xs={4}>
-            <LogoImg
-              src={logoImage}
-              alt="logo">
-            </LogoImg>
-          </Grid>
-        </Grid>
+        <LogoImg
+          src={logoImage}
+          alt="logo">
+        </LogoImg>
+        <MockModeDiv>
+        {isMock ? 'MOCK MODE' : null}
+        </MockModeDiv>
         <Grid
           container
           spacing={8}
@@ -103,7 +112,11 @@ class WordSearch extends Component<any, WordSearchState> {
 
   // onZuButtonClicked()
   onZuButtonClicked() {
-    this.startImageSearch(this.state.queryText);
+    if (this.props.isMock) {
+      this.addMockData();
+    } else {
+      this.startImageSearch(this.state.queryText);
+    }
   }
 
   // onTextInputChanged()
@@ -136,12 +149,29 @@ class WordSearch extends Component<any, WordSearchState> {
     let urls: ImageURL[] = [];
     for (let i = 0; i < json.items.length; i++) {
       const item = json.items[i];
+      console.log(`
+        {
+          link: '${item.link}',
+          thumbnailLink: '${item.image.thumbnailLink}',
+        },
+      `);
       urls.push(new ImageURL(
         item.link, item.image.thumbnailLink)
       );
     }
-    console.log(urls.length);
     this.setState({imageURLs: urls});
+  }
+
+  // addMockData()
+  private addMockData() {
+    // queryText: 
+    this.setState({queryText: 'apple'});
+    // searchResult:
+		const imageURLs = mockItems.map((item) => {
+			return new ImageURL(
+        item.link, item.thumbnailLink);
+		});
+    this.setState({imageURLs: imageURLs});
   }
 }
 
