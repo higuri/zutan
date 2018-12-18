@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
+import AddIcon from '@material-ui/icons/Add';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import SearchResult from './SearchResult';
 import {GOOGLE_CUSTOM_SEARCH_API_KEY} from './apikeys';
@@ -48,6 +49,28 @@ const SearchTextField = styled(TextField)`
 const SearchButton = styled(Button)`
   && {
     margin-left: 10px;
+  }
+` as any;
+const ImageDialog = styled(Dialog)`
+  && {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+` as any;
+// SelectedImg
+const SelectedImg = styled.img`
+  max-height: calc(100% - 60px);
+  object-fit: contain;
+`;
+// AddButton
+const AddButton = styled(Button)`
+  && {
+    height: 20px;
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
   }
 ` as any;
 // AppToolbar
@@ -95,6 +118,8 @@ class WordSearch extends Component<any, WordSearchState> {
     const thumbnailURLs = this.state.imageURLs.map(
       (url) => url.thumbnail
     );
+    const selectedImgSrc = this.state.iSelectedImageURL === null ?
+        "" : this.state.imageURLs[this.state.iSelectedImageURL!].fullsize;
     return (
       <div>
         <AppBar position="static">
@@ -131,11 +156,18 @@ class WordSearch extends Component<any, WordSearchState> {
           imageURLs={thumbnailURLs}
           onImageClicked={this.onImageClicked}
 				/>
-        <Dialog
+        <ImageDialog
           open={this.state.iSelectedImageURL !== null}
           onClose={this.onDialogClosed}>
-          <img src={this.state.iSelectedImageURL === null ? "" : this.state.imageURLs[this.state.iSelectedImageURL!].fullsize} />
-        </Dialog>
+            <SelectedImg src={selectedImgSrc} />
+            <AddButton
+              color="primary"
+              variant="contained"
+              onClick={() => this.onAddButtonClicked(selectedImgSrc)}>
+              ADD TO MY ZUTAN
+              <AddIcon style={{marginLeft: '10px'}} />
+            </AddButton>
+        </ImageDialog>
       </div>
     );
   }
@@ -147,6 +179,11 @@ class WordSearch extends Component<any, WordSearchState> {
     } else {
       this.startImageSearch(this.state.queryText);
     }
+  }
+
+  // onAddButtonClicked()
+  onAddButtonClicked(url: string) {
+    console.log('onAddButtonClicked: ' + url);
   }
 
   // onTextInputChanged()
