@@ -12,5 +12,9 @@ const firebaseConfig = {
   authDomain: 'zu-tan.firebaseapp.com',
   projectId: 'zu-tan',
 };
+require("firebase/firestore");
 firebase.initializeApp(firebaseConfig);
+firebase.firestore().settings({
+  timestampsInSnapshots: true
+});
 ReactDOM.render(<App isMock={false} />, document.getElementById('root'));

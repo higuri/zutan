@@ -3,20 +3,17 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import TextField from '@material-ui/core/TextField';
-import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import SearchResult from './SearchResult';
 import {GOOGLE_CUSTOM_SEARCH_API_KEY} from './apikeys';
 import {GOOGLE_CUSTOM_SEARCH_ENGINE_ID} from './apikeys';
 import logoImage from './images/logo.png';
 import mockItems from './mockItems';
+import * as firebase from 'firebase';
 
 // LogoImg
 const LogoImg = styled.img`
@@ -35,20 +32,20 @@ const MockVersionDiv = styled.div`
 const SearchFormDiv = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: initial;
 `;
 // SearchTextField
 const SearchTextField = styled(TextField)`
   && {
-    margin-left: 35%;
-    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
   }
 ` as any;
 // SearchButton
 const SearchButton = styled(Button)`
   && {
-    margin-left: 10px;
+    margin-top: 20px;
   }
 ` as any;
 const ImageDialog = styled(Dialog)`
@@ -67,27 +64,19 @@ const SelectedImg = styled.img`
 const AddButton = styled(Button)`
   && {
     height: 20px;
-    width: 250px;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;
-  }
-` as any;
-// AppToolbar
-const AppToolbar = styled(Toolbar)`
-  && {
-    display: flex;
-    justify-content: flex-end;
   }
 ` as any;
 
 // ImageURL
 class ImageURL {
   // ImageURL
-  constructor(public fullsize, public thumbnail) {
-    this.fullsize = fullsize;
-    this.thumbnail = thumbnail;
-  }
+  constructor(
+    public query: string,
+    public fullsize: string,
+    public thumbnail: string) {}
 }
 
 // WordSearch
@@ -108,6 +97,7 @@ class WordSearch extends Component<any, WordSearchState> {
     };
     this.onTextInputChanged = this.onTextInputChanged.bind(this);
     this.onZuButtonClicked = this.onZuButtonClicked.bind(this);
+    this.onAddButtonClicked = this.onAddButtonClicked.bind(this);
     this.onImageClicked = this.onImageClicked.bind(this);
     this.onDialogClosed = this.onDialogClosed.bind(this);
   }
@@ -122,16 +112,6 @@ class WordSearch extends Component<any, WordSearchState> {
         "" : this.state.imageURLs[this.state.iSelectedImageURL!].fullsize;
     return (
       <div>
-        <AppBar position="static">
-          <AppToolbar>
-            <IconButton color="inherit">
-              <SearchIcon />
-            </IconButton>
-            <IconButton color="inherit">
-              <AccountCircle />
-            </IconButton>
-          </AppToolbar>
-        </AppBar>
         <LogoImg
           src={logoImage}
           alt="logo">
@@ -163,7 +143,7 @@ class WordSearch extends Component<any, WordSearchState> {
             <AddButton
               color="primary"
               variant="contained"
-              onClick={() => this.onAddButtonClicked(selectedImgSrc)}>
+              onClick={this.onAddButtonClicked}>
               ADD TO MY ZUTAN
               <AddIcon style={{marginLeft: '10px'}} />
             </AddButton>
@@ -173,7 +153,7 @@ class WordSearch extends Component<any, WordSearchState> {
   }
 
   // onZuButtonClicked()
-  onZuButtonClicked() {
+  onZuButtonClicked(): void {
     if (this.props.isMock) {
       this.addMockData();
     } else {
@@ -182,8 +162,19 @@ class WordSearch extends Component<any, WordSearchState> {
   }
 
   // onAddButtonClicked()
-  onAddButtonClicked(url: string) {
-    console.log('onAddButtonClicked: ' + url);
+  onAddButtonClicked(): void {
+    const iImageURLs = this.state.iSelectedImageURL;
+    if (iImageURLs === null) {
+      return;
+    }
+    const imageURL = this.state.imageURLs[iImageURLs];
+    // TODO: error handling.
+    const db = firebase.firestore();
+    db.collection('users').doc('test-user')
+      .collection('zutan').add({
+        word: imageURL.query,
+        imageURL: imageURL.fullsize
+      });
   }
 
   // onTextInputChanged()
@@ -223,7 +214,7 @@ class WordSearch extends Component<any, WordSearchState> {
         },
       `);
       urls.push(new ImageURL(
-        item.link, item.image.thumbnailLink)
+        query, item.link, item.image.thumbnailLink)
       );
     }
     this.setState({imageURLs: urls});
@@ -231,12 +222,13 @@ class WordSearch extends Component<any, WordSearchState> {
 
   // addMockData()
   private addMockData() {
+    const query = 'apple';
     // queryText: 
-    this.setState({queryText: 'apple'});
+    this.setState({queryText: query});
     // searchResult:
 		const imageURLs = mockItems.map((item) => {
 			return new ImageURL(
-        item.link, item.thumbnailLink);
+        query, item.link, item.thumbnailLink);
 		});
     this.setState({imageURLs: imageURLs});
   }
