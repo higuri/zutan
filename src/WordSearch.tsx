@@ -20,18 +20,43 @@ import mockItems from './mockItems';
 // LogoImg
 const LogoImg = styled.img`
   display: block;
-  width: 30%;
-  height: auto;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
 `;
-// MockModeDiv
-const MockModeDiv = styled.div`
+// MockVersionDiv
+const MockVersionDiv = styled.div`
   width: 100%;
-  height: auto;
   text-align: center;
-  margin: 20px;
   font-size: 20px;
+  margin-bottom: 20px;
 `;
+// SearchFormDiv
+const SearchFormDiv = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: initial;
+`;
+// SearchTextField
+const SearchTextField = styled(TextField)`
+  && {
+    margin-left: 35%;
+    width: 30%;
+  }
+` as any;
+// SearchButton
+const SearchButton = styled(Button)`
+  && {
+    margin-left: 10px;
+  }
+` as any;
+// AppToolbar
+const AppToolbar = styled(Toolbar)`
+  && {
+    display: flex;
+    justify-content: flex-end;
+  }
+` as any;
 
 // ImageURL
 class ImageURL {
@@ -70,48 +95,38 @@ class WordSearch extends Component<any, WordSearchState> {
     const thumbnailURLs = this.state.imageURLs.map(
       (url) => url.thumbnail
     );
-    // TODO: styling with Grid
     return (
       <div>
         <AppBar position="static">
-          <Toolbar>
+          <AppToolbar>
             <IconButton color="inherit">
               <SearchIcon />
             </IconButton>
             <IconButton color="inherit">
               <AccountCircle />
             </IconButton>
-          </Toolbar>
+          </AppToolbar>
         </AppBar>
         <LogoImg
           src={logoImage}
           alt="logo">
         </LogoImg>
-        <MockModeDiv>
-        {isMock ? 'MOCK MODE' : null}
-        </MockModeDiv>
-        <Grid
-          container
-          spacing={8}
-          alignItems="center"
-          justify="center">
-          <Grid item xs={6}>
-			  		<TextField
-              autoFocus={true}
-              fullWidth={true}
-			  			variant="outlined"
-              value={this.state.queryText}
-              onChange={this.onTextInputChanged}
-			  		/>
-          </Grid>   
-          <Grid item xs={2}>
-            <Button
-              variant="outlined"
-              onClick={this.onZuButtonClicked}>
-              ZU
-            </Button>
-          </Grid>   
-        </Grid> 
+        <MockVersionDiv>
+          {isMock ? '--- Mock Version ---' : null}
+        </MockVersionDiv>
+        <SearchFormDiv>
+          <SearchTextField
+            autoFocus={true}
+            variant="outlined"
+            value={this.state.queryText}
+            onChange={this.onTextInputChanged}
+          />
+          <SearchButton
+            variant="outlined"
+            onClick={this.onZuButtonClicked}>
+            ZU
+          </SearchButton>
+        </SearchFormDiv>
         <SearchResult
           imageURLs={thumbnailURLs}
           onImageClicked={this.onImageClicked}
