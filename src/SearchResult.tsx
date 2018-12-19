@@ -2,18 +2,37 @@
 
 import React, { Component } from 'react';
 import styled from 'styled-components'
-import ResultRow from './ResultRow';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 // SearchResultDiv 
 const SearchResultDiv = styled.div`
+  width: 80%;
   margin-top: 30px;
-  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+` as any;
+// ImageCard
+const ImageCard = styled(Card)`
+  && {
+    margin: 20px;
+  }
+` as any;
+// ResultImg
+const ResultImg = styled.img`
+  width: 200px;
+  object-fit: contain;
 `;
 
 /// SearchResultProps
 interface SearchResultProps {
   imageURLs: string[];
-  onImageClicked: (iRows: number, iCells: number) => void;
+  onImageClicked: (iImages: number) => void;
 }
 
 /// SearchResult
@@ -21,27 +40,23 @@ class SearchResult extends Component<SearchResultProps> {
 
   // render()
   render() {
-    let resultRows: JSX.Element[] = [];
-    let imageURLs: string[] = [];
-    for (let i = 0; i < this.props.imageURLs.length; i++) {
-      const url = this.props.imageURLs[i];
-      imageURLs.push(url);
-      if ((i !== 0 && (i+1) % 5 === 0) || i === this.props.imageURLs.length - 1) {
-        const iRows = resultRows.length;
-        resultRows.push(
-          <ResultRow
-            key={i.toString()}
-            imageURLs={imageURLs}
-            onImageClicked={
-              (iCells) => this.props.onImageClicked(iRows, iCells)
-            } />
-        );
-        imageURLs = [];
-      }
-    }
+    const imageURLs = this.props.imageURLs;
     return (
       <SearchResultDiv>
-        {resultRows} 
+        {
+          imageURLs.map((url, i) => {
+            return (
+              <ImageCard
+                raised
+                key={i}
+                onClick={() => this.props.onImageClicked(i)}>
+                <CardContent>
+                  <ResultImg src={url} />
+                </CardContent>
+              </ImageCard>
+            )
+          })
+        }
       </SearchResultDiv>
     );
   }

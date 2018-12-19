@@ -57,8 +57,9 @@ const ImageDialog = styled(Dialog)`
 ` as any;
 // SelectedImg
 const SelectedImg = styled.img`
-  max-height: calc(100% - 60px);
+  width: 75vw;
   object-fit: contain;
+  margin: 20px;
 `;
 // AddButton
 const AddButton = styled(Button)`
@@ -183,10 +184,9 @@ class WordSearch extends Component<any, WordSearchState> {
   }
 
   // onImageClicked()
-  onImageClicked(iRows, iCells) {
-    console.log('WordSearch.onImageClicked: ', iRows, iCells);
-    const i = iRows * 5 + iCells;
-    this.setState({iSelectedImageURL: i});
+  onImageClicked(iImages: number) {
+    console.log('WordSearch.onImageClicked: ', iImages);
+    this.setState({iSelectedImageURL: iImages});
   }
 
   // onDialogClosed()
