@@ -17,4 +17,9 @@ firebase.initializeApp(firebaseConfig);
 firebase.firestore().settings({
   timestampsInSnapshots: true
 });
-ReactDOM.render(<App isMock={false} />, document.getElementById('root'));
+let isMock = false;
+console.log('process.env.REACT_APP_MOCK: ' + process.env.REACT_APP_MOCK)
+if (process.env.REACT_APP_MOCK) {
+  isMock = true;
+}
+ReactDOM.render(<App isMock={isMock} />, document.getElementById('root'));

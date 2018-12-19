@@ -15,6 +15,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:mock": "cross-env REACT_APP_MOCK=1 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -38,6 +39,7 @@
     "@types/react": "^16.7.17",
     "@types/react-dom": "^16.0.11",
     "@types/styled-components": "^4.1.4",
+    "cross-env": "^5.2.0",
     "gh-pages": "^2.0.1",
     "typescript": "^3.2.2"
   }
