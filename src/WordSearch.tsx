@@ -57,7 +57,7 @@ const ImageDialog = styled(Dialog)`
 ` as any;
 // SelectedImg
 const SelectedImg = styled.img`
-  width: 75vw;
+  width: 300px;
   object-fit: contain;
   margin: 20px;
 `;
@@ -136,7 +136,7 @@ class WordSearch extends Component<any, WordSearchState> {
         <SearchResult
           imageURLs={thumbnailURLs}
           onImageClicked={this.onImageClicked}
-				/>
+        />
         <ImageDialog
           open={this.state.iSelectedImageURL !== null}
           onClose={this.onDialogClosed}>
@@ -226,10 +226,10 @@ class WordSearch extends Component<any, WordSearchState> {
     // queryText: 
     this.setState({queryText: query});
     // searchResult:
-		const imageURLs = mockItems.map((item) => {
-			return new ImageURL(
+    const imageURLs = mockItems.map((item) => {
+      return new ImageURL(
         query, item.link, item.thumbnailLink);
-		});
+    });
     this.setState({imageURLs: imageURLs});
   }
 }

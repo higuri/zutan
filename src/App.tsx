@@ -7,7 +7,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import HomeIcon from '@material-ui/icons/Home';
 import SignIn from './SignIn';
 import WordSearch from './WordSearch';
 import MyZutan from './MyZutan';
@@ -41,6 +41,7 @@ class App extends Component<any, AppState> {
       isShowMyZutan: false
     }
     this.onMyZutanButtonClicked = this.onMyZutanButtonClicked.bind(this);
+    this.onHomeButtonClicked = this.onHomeButtonClicked.bind(this);
   }
 
   // render()
@@ -52,13 +53,32 @@ class App extends Component<any, AppState> {
       <div>
         <AppBar position="static">
           <AppToolbar>
+            {/*
+              isShowMyZutan ? (
+                <TextField
+                  placeholder="Zu..."
+                  style={{backgroundColor: 'white'}}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <SearchIcon
+                          onClick={this.onSearchButtonClicked}
+                        />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              ) : null
+            */}
+              
             <IconButton
               color="inherit"
               onClick={this.onMyZutanButtonClicked}>
               <BookmarksIcon />
             </IconButton>
-            <IconButton color="inherit">
-              <AccountCircle />
+            <IconButton color="inherit"
+              onClick={this.onHomeButtonClicked}>
+              <HomeIcon />
             </IconButton>
           </AppToolbar>
         </AppBar>
@@ -97,6 +117,11 @@ class App extends Component<any, AppState> {
   // onMyZutanButtonClicked()
   onMyZutanButtonClicked(): void {
     this.setState({isShowMyZutan: true});
+  }
+
+  // onHomeButtonClicked()
+  onHomeButtonClicked(): void {
+    this.setState({isShowMyZutan: false});
   }
 }
 

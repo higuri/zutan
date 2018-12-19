@@ -14,7 +14,7 @@ const SearchResultDiv = styled.div`
   margin-right: auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
 ` as any;
 // ImageCard
