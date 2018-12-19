@@ -1,5 +1,7 @@
-// mockItems:
-const mockItems = [
+// mockData.js
+
+// searchResult:
+const searchResult = [
   {
     link: 'https://cdn.vox-cdn.com/thumbor/-bKrYahnwqww9sH9v2h34v9ViA0=/0x114:585x559/1200x800/filters:focal(248x297:340x389)/cdn.vox-cdn.com/uploads/chorus_image/image/57272301/Screen_Shot_2017_10_23_at_10.16.32_AM.0.png',
     thumbnailLink: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlBF14xhP-euH2Q6ZpfR1oEQnej6GsXaC3G2t8FNA7w7YoChGxm-s5Dzsy',
@@ -42,4 +44,27 @@ const mockItems = [
   }
 ];
 
-export default mockItems;
+// zutanObjects
+let zutanObjects = [
+  {
+    word: 'baby',
+    imageURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkkE8uxd0zL2OOxb2peVgzGG-7y9QaYwjsANTBlqBNrwOyIYxCJUQwyqXj'
+  },
+  {
+    word: 'rice',
+    imageURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7e6Jd2lAMhd4CG_8kB3UA5Eh-HkErKgTZ5Brc_HHW0RhCAYKHOleSrp8'
+  },
+  {
+    word: 'run',
+    imageURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROVKCx-Nu-YOEakvGd-F8AqNAj_Fi30gsh91eairuJCl1hoGlm14RCVoLB'
+  },
+  {
+    word: 'dog',
+    imageURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdEoGDnBnlMkA8ktj6ogdeqYaqEG7jhJwnH70aIrc4eoJODmNSYgsAHdoB'
+  }
+]
+
+export {
+  searchResult,
+  zutanObjects
+}

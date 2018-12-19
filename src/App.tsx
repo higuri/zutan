@@ -46,8 +46,8 @@ class App extends Component<any, AppState> {
 
   // render()
   render() {
-    const signInNeeded = this.props.isMock ?
-      false : !this.state.isSignedIn;
+		const isMock = this.props.isMock;
+    const signInNeeded = isMock ?  false : !this.state.isSignedIn;
     const isShowMyZutan = this.state.isShowMyZutan;
     const AppMain = (
       <div>
@@ -84,8 +84,8 @@ class App extends Component<any, AppState> {
         </AppBar>
         {
           isShowMyZutan ?
-            <MyZutan /> : 
-            <WordSearch isMock={this.props.isMock} />
+            <MyZutan isMock={isMock} /> : 
+            <WordSearch isMock={isMock} />
         }
       </div>
     );

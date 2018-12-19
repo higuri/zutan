@@ -8,12 +8,13 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
+import * as firebase from 'firebase';
+
 import SearchResult from './SearchResult';
 import {GOOGLE_CUSTOM_SEARCH_API_KEY} from './apikeys';
 import {GOOGLE_CUSTOM_SEARCH_ENGINE_ID} from './apikeys';
 import logoImage from './images/logo.png';
-import mockItems from './mockItems';
-import * as firebase from 'firebase';
+import * as mockData from './mockData';
 
 // LogoImg
 const LogoImg = styled.img`
@@ -110,7 +111,7 @@ class WordSearch extends Component<any, WordSearchState> {
       (url) => url.thumbnail
     );
     const selectedImgSrc = this.state.iSelectedImageURL === null ?
-        "" : this.state.imageURLs[this.state.iSelectedImageURL!].fullsize;
+        "" : this.state.imageURLs[this.state.iSelectedImageURL!].thumbnail;
     return (
       <div>
         <LogoImg
@@ -156,7 +157,7 @@ class WordSearch extends Component<any, WordSearchState> {
   // onZuButtonClicked()
   onZuButtonClicked(): void {
     if (this.props.isMock) {
-      this.addMockData();
+      this.addMockResult();
     } else {
       this.startImageSearch(this.state.queryText);
     }
@@ -174,8 +175,10 @@ class WordSearch extends Component<any, WordSearchState> {
     db.collection('users').doc('test-user')
       .collection('zutan').add({
         word: imageURL.query,
-        imageURL: imageURL.fullsize
+        // imageURL: imageURL.fullsize
+        imageURL: imageURL.thumbnail
       });
+    this.setState({iSelectedImageURL: null});
   }
 
   // onTextInputChanged()
@@ -185,7 +188,6 @@ class WordSearch extends Component<any, WordSearchState> {
 
   // onImageClicked()
   onImageClicked(iImages: number) {
-    console.log('WordSearch.onImageClicked: ', iImages);
     this.setState({iSelectedImageURL: iImages});
   }
 
@@ -207,12 +209,6 @@ class WordSearch extends Component<any, WordSearchState> {
     let urls: ImageURL[] = [];
     for (let i = 0; i < json.items.length; i++) {
       const item = json.items[i];
-      console.log(`
-        {
-          link: '${item.link}',
-          thumbnailLink: '${item.image.thumbnailLink}',
-        },
-      `);
       urls.push(new ImageURL(
         query, item.link, item.image.thumbnailLink)
       );
@@ -220,13 +216,13 @@ class WordSearch extends Component<any, WordSearchState> {
     this.setState({imageURLs: urls});
   }
 
-  // addMockData()
-  private addMockData() {
+  // addMockResult()
+  private addMockResult() {
     const query = 'apple';
     // queryText: 
     this.setState({queryText: query});
     // searchResult:
-    const imageURLs = mockItems.map((item) => {
+    const imageURLs = mockData.searchResult.map((item) => {
       return new ImageURL(
         query, item.link, item.thumbnailLink);
     });
