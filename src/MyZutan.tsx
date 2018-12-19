@@ -1,8 +1,34 @@
 // MyZutan.tsx
 
 import React, { Component } from 'react';
+import styled from 'styled-components'
+import Card from '@material-ui/core/Card';
+import Avatar from '@material-ui/core/Avatar';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
 import * as firebase from 'firebase';
 import * as mockData from './mockData';
+
+const ImagesDiv = styled.div`
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: center;
+` as any;
+// ImageCard
+const ImageCard = styled(Card)`
+  && {
+    margin: 20px;
+  }
+` as any;
+// WordImg
+const WordImg = styled.img`
+  width: 200px;
+  object-fit: contain;
+`;
 
 // MyZutan
 interface MyZutanState {
@@ -35,15 +61,30 @@ class MyZutan extends Component<any, MyZutanState> {
       // TODO: loading
       return null;
     }
-    const elems = this.state.zutanObjects.map((item, i) => {
-      return (
-        <div key={i}>
-          <h2>{item.word}</h2>
-          <img src={item.imageURL} />
-        </div>
-      )
-    });
-    return <div>{elems}</div>;
+    return (
+      <ImagesDiv>
+        {
+          this.state.zutanObjects.map((obj, i) => (
+            /* TODO:  obj.word */
+            <ImageCard
+              raised
+              key={i} >
+							<CardHeader
+								avatar={
+									<Avatar aria-label="Word">
+										{obj.word[0] && obj.word[0].toUpperCase()}
+									</Avatar>
+								}
+								title={obj.word}
+							/>
+              <CardContent>
+                <WordImg src={obj.imageURL} />
+              </CardContent>
+            </ImageCard>
+          ))
+        }
+      </ImagesDiv>
+    );
   }
 
   // loadZutanObjects()

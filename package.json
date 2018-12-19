@@ -17,9 +17,10 @@
     "start": "react-scripts start",
     "start:mock": "cross-env REACT_APP_MOCK=1 react-scripts start",
     "build": "react-scripts build",
+    "build:mock": "cross-env REACT_APP_MOCK=1 react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "yarn build",
+    "predeploy": "yarn build:mock",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {

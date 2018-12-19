@@ -170,14 +170,16 @@ class WordSearch extends Component<any, WordSearchState> {
       return;
     }
     const imageURL = this.state.imageURLs[iImageURLs];
-    // TODO: error handling.
-    const db = firebase.firestore();
-    db.collection('users').doc('test-user')
-      .collection('zutan').add({
-        word: imageURL.query,
-        // imageURL: imageURL.fullsize
-        imageURL: imageURL.thumbnail
-      });
+		const zutanObject = {
+			word: imageURL.query,
+			// imageURL: imageURL.fullsize
+			imageURL: imageURL.thumbnail
+		};
+		if (this.props.isMock) {
+			this.addToMockObjects(zutanObject);
+		} else {
+			this.addToFirestore(zutanObject);
+		}
     this.setState({iSelectedImageURL: null});
   }
 
@@ -195,6 +197,19 @@ class WordSearch extends Component<any, WordSearchState> {
   onDialogClosed() {
     this.setState({iSelectedImageURL: null});
   }
+
+	// addToFirestore()
+	private addToFirestore(zutanObject: any): void {
+    // TODO: error handling. async?
+    const db = firebase.firestore();
+    db.collection('users').doc('test-user')
+      .collection('zutan').add(zutanObject);
+	}
+
+	// addToMockObjects()
+	private addToMockObjects(zutanObject: any): void {
+		mockData.zutanObjects.push(zutanObject);
+	}
 
   // startImageSearch()
   async startImageSearch(query) {

@@ -40,22 +40,19 @@ class SearchResult extends Component<SearchResultProps> {
 
   // render()
   render() {
-    const imageURLs = this.props.imageURLs;
     return (
       <SearchResultDiv>
         {
-          imageURLs.map((url, i) => {
-            return (
-              <ImageCard
-                raised
-                key={i}
-                onClick={() => this.props.onImageClicked(i)}>
-                <CardContent>
-                  <ResultImg src={url} />
-                </CardContent>
-              </ImageCard>
-            )
-          })
+          this.props.imageURLs.map((url, i) => (
+            <ImageCard
+              raised
+              key={i}
+              onClick={() => this.props.onImageClicked(i)}>
+              <CardContent>
+                <ResultImg src={url} />
+              </CardContent>
+            </ImageCard>
+          ))
         }
       </SearchResultDiv>
     );

@@ -1,2 +1,14 @@
 TODO.txt
-* Mobile (RWD)
+* Organize Components
+* AppBar
+  - search
+  - logout (AccountCircle)
+* Demo Page (gh-pages)
+  - Demo Page: Card
+    onhover: just return result about 'apple'
+    click to view how to setup your own.
+* README
+  - how to configure
+    apiKeys.js
+* Lint
+* DB: Dropbox, Google Drive, OneDrive
