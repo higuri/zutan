@@ -200,10 +200,14 @@ class WordSearch extends Component<any, WordSearchState> {
 
 	// addToFirestore()
 	private addToFirestore(zutanObject: any): void {
-    // TODO: error handling. async?
-    const db = firebase.firestore();
-    db.collection('users').doc('test-user')
-      .collection('zutan').add(zutanObject);
+    // TODO: props?
+    const user = firebase.auth().currentUser; 
+    if (user !== null) {
+      // TODO: error handling. async?
+      const db = firebase.firestore();
+      db.collection('users').doc(user.uid)
+        .collection('zutan').add(zutanObject);
+    }
 	}
 
 	// addToMockObjects()

@@ -89,23 +89,27 @@ class MyZutan extends Component<any, MyZutanState> {
 
   // loadZutanObjects()
   private loadZutanObjects(): void {
-    const zutan = firebase.firestore()
-      .collection('users').doc('test-user')
-      .collection('zutan');
-    zutan.get().then((snapshot) => {
-      let objs: any[] = []
-      snapshot.forEach((doc) => {
-        let data = doc.data()
-        objs.push({
-          word: data.word,
-          imageURL: data.imageURL
+    // TODO: props?
+    const user = firebase.auth().currentUser; 
+    if (user !== null) {
+      const zutan = firebase.firestore()
+        .collection('users').doc(user.uid)
+        .collection('zutan');
+      zutan.get().then((snapshot) => {
+        let objs: any[] = []
+        snapshot.forEach((doc) => {
+          let data = doc.data()
+          objs.push({
+            word: data.word,
+            imageURL: data.imageURL
+          });
+        })
+        this.setState({
+          zutanObjects: objs,
+          isZutanObjectsReady: true
         });
-      })
-      this.setState({
-        zutanObjects: objs,
-        isZutanObjectsReady: true
       });
-    });
+    }
   }
   
   // loadZutanMockObjects()
