@@ -98,7 +98,6 @@ class App extends Component<any, AppState> {
 
   // componentDidMount()
   componentDidMount() {
-    document.title = 'Zutan';
     this.addFirebaseAuthListener();
   }
 
