@@ -1,7 +1,7 @@
 {
   "main.css": "/zutan/static/css/main.c4cd09e6.chunk.css",
-  "main.js": "/zutan/static/js/main.a9f103a3.chunk.js",
-  "main.js.map": "/zutan/static/js/main.a9f103a3.chunk.js.map",
+  "main.js": "/zutan/static/js/main.e6e67a64.chunk.js",
+  "main.js.map": "/zutan/static/js/main.e6e67a64.chunk.js.map",
   "static/css/1.836dc9d3.chunk.css": "/zutan/static/css/1.836dc9d3.chunk.css",
   "static/js/1.c826749e.chunk.js": "/zutan/static/js/1.c826749e.chunk.js",
   "static/js/1.c826749e.chunk.js.map": "/zutan/static/js/1.c826749e.chunk.js.map",
@@ -10,6 +10,6 @@
   "static/css/1.836dc9d3.chunk.css.map": "/zutan/static/css/1.836dc9d3.chunk.css.map",
   "static/css/main.c4cd09e6.chunk.css.map": "/zutan/static/css/main.c4cd09e6.chunk.css.map",
   "index.html": "/zutan/index.html",
-  "precache-manifest.0bba06a5815e6eed0cd289dcc259e817.js": "/zutan/precache-manifest.0bba06a5815e6eed0cd289dcc259e817.js",
+  "precache-manifest.2b3fde8253122ffbefda89ac8a1b2143.js": "/zutan/precache-manifest.2b3fde8253122ffbefda89ac8a1b2143.js",
   "service-worker.js": "/zutan/service-worker.js"
 }
