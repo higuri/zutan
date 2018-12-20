@@ -13,7 +13,7 @@ const SearchResultDiv = styled.div`
   margin-right: 10px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: flex-start;
 ` as any;
 // ImageCard

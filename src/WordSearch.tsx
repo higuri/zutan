@@ -111,7 +111,7 @@ class WordSearch extends Component<any, WordSearchState> {
       (url) => url.thumbnail
     );
     const selectedImgSrc = this.state.iSelectedImageURL === null ?
-        "" : this.state.imageURLs[this.state.iSelectedImageURL!].thumbnail;
+        "" : this.state.imageURLs[this.state.iSelectedImageURL!].fullsize;
     return (
       <div>
         <LogoImg
@@ -172,8 +172,7 @@ class WordSearch extends Component<any, WordSearchState> {
     const imageURL = this.state.imageURLs[iImageURLs];
 		const zutanObject = {
 			word: imageURL.query,
-			// imageURL: imageURL.fullsize
-			imageURL: imageURL.thumbnail
+			imageURL: imageURL.fullsize
 		};
 		if (this.props.isMock) {
 			this.addToMockObjects(zutanObject);
