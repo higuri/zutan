@@ -3,8 +3,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
@@ -101,6 +101,7 @@ class WordSearch extends Component<any, WordSearchState> {
     this.onZuButtonClicked = this.onZuButtonClicked.bind(this);
     this.onAddButtonClicked = this.onAddButtonClicked.bind(this);
     this.onImageClicked = this.onImageClicked.bind(this);
+    this.onMoreResultsClicked = this.onMoreResultsClicked.bind(this);
     this.onDialogClosed = this.onDialogClosed.bind(this);
   }
 
@@ -137,7 +138,7 @@ class WordSearch extends Component<any, WordSearchState> {
         <SearchResult
           imageURLs={thumbnailURLs}
           onImageClicked={this.onImageClicked}
-        />
+          onMoreResultsClicked={this.onMoreResultsClicked} />
         <ImageDialog
           open={this.state.iSelectedImageURL !== null}
           onClose={this.onDialogClosed}>
@@ -188,8 +189,15 @@ class WordSearch extends Component<any, WordSearchState> {
   }
 
   // onImageClicked()
-  onImageClicked(iImages: number) {
+  onImageClicked(iImages: number): void {
     this.setState({iSelectedImageURL: iImages});
+  }
+
+  // onMoreResultsClicked()
+  onMoreResultsClicked(): void {
+    if (!this.props.isMock) {
+      this.startImageSearch(this.state.queryText);
+    }
   }
 
   // onDialogClosed()
@@ -216,12 +224,16 @@ class WordSearch extends Component<any, WordSearchState> {
 
   // startImageSearch()
   async startImageSearch(query) {
-    const response = await fetch(
-      'https://www.googleapis.com/customsearch/v1' +
+    const imageURLs = this.state.imageURLs;
+    const url = 'https://www.googleapis.com/customsearch/v1' +
       '?key=' + GOOGLE_CUSTOM_SEARCH_API_KEY + 
       '&cx=' + GOOGLE_CUSTOM_SEARCH_ENGINE_ID + 
+      '&num=' + 10 +
+      '&start=' + (imageURLs.length + 1) +
       '&searchType=image' +
-      '&q=' + query);
+      '&q=' + query;
+    // console.log(url);
+    const response = await fetch(url);
     const json = await response.json();
     // console.log(json);
     let urls: ImageURL[] = [];
@@ -231,7 +243,7 @@ class WordSearch extends Component<any, WordSearchState> {
         query, item.link, item.image.thumbnailLink)
       );
     }
-    this.setState({imageURLs: urls});
+    this.setState({imageURLs: imageURLs.concat(urls)});
   }
 
   // addMockResult()

@@ -2,13 +2,14 @@
 
 import React, { Component } from 'react';
 import styled from 'styled-components'
-import Grid from '@material-ui/core/Grid';
+import Fab from '@material-ui/core/Fab';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 // SearchResultDiv 
 const SearchResultDiv = styled.div`
-  margin-top: 10px;
+  margin-top: 20px;
   margin-left: 10px;
   margin-right: 10px;
   display: flex;
@@ -27,11 +28,17 @@ const ResultImg = styled.img`
   width: 100px;
   object-fit: contain;
 `;
+const MoreResultsDiv = styled.div`
+  margin: 10px auto;
+  display: flex;
+  justify-content: center;
+`;
 
 /// SearchResultProps
 interface SearchResultProps {
   imageURLs: string[];
   onImageClicked: (iImages: number) => void;
+  onMoreResultsClicked: () => void;
 }
 
 /// SearchResult
@@ -40,20 +47,34 @@ class SearchResult extends Component<SearchResultProps> {
   // render()
   render() {
     return (
-      <SearchResultDiv>
+      <div>
+        <SearchResultDiv>
+          {
+            this.props.imageURLs.map((url, i) => (
+              <ImageCard
+                raised
+                key={i}
+                onClick={() => this.props.onImageClicked(i)}>
+                <CardContent>
+                  <ResultImg src={url} />
+                </CardContent>
+              </ImageCard>
+            ))
+          }
+        </SearchResultDiv>
         {
-          this.props.imageURLs.map((url, i) => (
-            <ImageCard
-              raised
-              key={i}
-              onClick={() => this.props.onImageClicked(i)}>
-              <CardContent>
-                <ResultImg src={url} />
-              </CardContent>
-            </ImageCard>
-          ))
+          (0 < this.props.imageURLs.length) && (
+            <MoreResultsDiv>
+              <Fab
+                variant="extended"
+                onClick={this.props.onMoreResultsClicked}>
+                <KeyboardArrowDownIcon />
+                More Results
+              </Fab>
+            </MoreResultsDiv>
+          )
         }
-      </SearchResultDiv>
+      </div>
     );
   }
 }
