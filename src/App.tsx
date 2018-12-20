@@ -6,8 +6,8 @@ import * as firebase from 'firebase';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import HomeIcon from '@material-ui/icons/Home';
+import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import SignIn from './SignIn';
 import WordSearch from './WordSearch';
 import MyZutan from './MyZutan';
@@ -74,7 +74,7 @@ class App extends Component<any, AppState> {
             <IconButton
               color="inherit"
               onClick={this.onMyZutanButtonClicked}>
-              <BookmarksIcon />
+              <PhotoLibraryIcon />
             </IconButton>
             <IconButton color="inherit"
               onClick={this.onHomeButtonClicked}>

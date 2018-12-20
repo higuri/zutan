@@ -8,24 +8,23 @@ import CardContent from '@material-ui/core/CardContent';
 
 // SearchResultDiv 
 const SearchResultDiv = styled.div`
-  width: 80%;
-  margin-top: 30px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: start;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
 ` as any;
 // ImageCard
 const ImageCard = styled(Card)`
   && {
-    margin: 20px;
+    margin: 5px;
   }
 ` as any;
 // ResultImg
 const ResultImg = styled.img`
-  width: 200px;
+  width: 100px;
   object-fit: contain;
 `;
 

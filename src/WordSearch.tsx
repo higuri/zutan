@@ -13,14 +13,14 @@ import * as firebase from 'firebase';
 import SearchResult from './SearchResult';
 import {GOOGLE_CUSTOM_SEARCH_API_KEY} from './apikeys';
 import {GOOGLE_CUSTOM_SEARCH_ENGINE_ID} from './apikeys';
-import logoImage from './images/logo.png';
+import zutanIcon from './images/zutan.svg';
 import * as mockData from './mockData';
 
 // LogoImg
 const LogoImg = styled.img`
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  width: 225px;
+  margin: 20px auto;
 `;
 // MockVersionDiv
 const MockVersionDiv = styled.div`
@@ -115,7 +115,7 @@ class WordSearch extends Component<any, WordSearchState> {
     return (
       <div>
         <LogoImg
-          src={logoImage}
+          src={zutanIcon}
           alt="logo">
         </LogoImg>
         <MockVersionDiv>

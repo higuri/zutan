@@ -1,9 +1,14 @@
 // SignIn.tsx
 
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import * as firebase from 'firebase';
 import * as firebaseui from 'firebaseui';
 import 'firebaseui/dist/firebaseui.css';
+
+const SignInDiv = styled.div`
+  margin-top: 20px;
+`;
 
 // SignIn
 interface SignInState {
@@ -46,10 +51,10 @@ class SignIn extends Component<any, SignInState> {
   render() {
     const uiShown = this.state.firebaseUIShown;
     return (
-      <div>
+      <SignInDiv>
         <div className="firebaseui-auth-container"></div>
         {!uiShown && <div>Loading...</div>}
-      </div>
+      </SignInDiv>
     );
   }
 
