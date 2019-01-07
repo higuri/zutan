@@ -9,7 +9,7 @@ import SearchResultRow from './SearchResultRow';
 
 // ResultDiv
 const ResultDiv = styled.div`
-  margin: 30px 0;
+  margin: 10px;
 `;
 // MoreResultsDiv
 const MoreResultsDiv = styled.div`

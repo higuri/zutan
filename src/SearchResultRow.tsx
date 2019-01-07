@@ -15,6 +15,7 @@ const RowDiv = styled.div`
 const ResultImg = styled.img`
   max-width: 100%;
   max-height: 100%;
+  margin: auto;
   object-fit: contain;
 `;
 
@@ -36,9 +37,7 @@ class SearchResultRow extends Component<SearchResultRowProps> {
           spacing={8}>
         {
           this.props.imageURLs.map((url, i) => (
-            <Grid
-              key={i}
-              item xs>
+            <Grid key={i} item xs>
               <Card
                 raised
                 onClick={() => this.props.onImageClicked(i)}>

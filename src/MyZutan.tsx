@@ -2,43 +2,15 @@
 
 import React, { Component } from 'react';
 import styled from 'styled-components'
-import Card from '@material-ui/core/Card';
-import Avatar from '@material-ui/core/Avatar';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import IconButton from '@material-ui/core/IconButton';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import withWidth from '@material-ui/core/withWidth';
 import * as firebase from 'firebase';
 import * as mockData from './mockData';
+import MyZutanRow from './MyZutanRow';
 
-const ImagesDiv = styled.div`
-  margin-top: 20px;
-  margin-left: 10px;
-  margin-right: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: start;
-  align-items: flex-start;
-` as any;
-// ImageCard
-const ImageCard = styled(Card)`
-  && {
-    margin: 5px;
-  }
-` as any;
-// WordImg
-const WordImg = styled.img`
-  display: block;
-  width: 100px;
-  object-fit: contain;
+// MyZutanDiv
+const MyZutanDiv = styled.div`
+  margin: 10px;
 `;
-// MoreImgIconButton
-const MoreImgIconButton = styled(IconButton)`
-  && {
-    margin-left: auto;
-  }
-` as any;
 
 // MyZutan
 interface MyZutanState {
@@ -71,6 +43,7 @@ class MyZutan extends Component<any, MyZutanState> {
       // TODO: loading
       return null;
     }
+    // sortedWords
     let words: string[] = [];
     let word2urls = {};
     this.state.zutanObjects.forEach((obj) => {
@@ -82,37 +55,37 @@ class MyZutan extends Component<any, MyZutanState> {
       }
     })
     words.sort();
+    // rows
+    const width = this.props.width;
+    let unit;
+    switch (width) {
+      case 'xs':
+        unit = 1;
+        break;
+      default:
+        unit = 3;
+        break;
+    }
+    let rows: string[][] = [];
+    words.forEach((word, i) => {
+      if (i % unit === 0) {
+        rows.push([]);
+      }
+      rows[rows.length - 1].push(word);
+    });
+    //
     return (
-      <ImagesDiv>
+      <MyZutanDiv>
         {
-          words.map((word, i) => (
-            <ImageCard
-              raised
-              key={i} >
-							<CardHeader
-								avatar={
-									<Avatar aria-label="Word">
-										{word[0] && word[0].toUpperCase()}
-									</Avatar>
-								}
-								title={word}
-							/>
-              <CardContent>
-               <WordImg src={word2urls[word][0]} />
-              </CardContent>
-              <CardActions>
-                {
-                  1 < word2urls[word].length && (
-                    <MoreImgIconButton>
-                      <MoreHorizIcon />
-                    </MoreImgIconButton>
-                  )
-                }
-              </CardActions>
-            </ImageCard>
+          rows.map((word, i) => (
+            <MyZutanRow
+              key={i}
+              words={word}
+              word2urls={word2urls}>
+            </MyZutanRow>
           ))
         }
-      </ImagesDiv>
+      </MyZutanDiv>
     );
   }
 
@@ -150,4 +123,4 @@ class MyZutan extends Component<any, MyZutanState> {
   }
 }
 
-export default MyZutan;
+export default withWidth()(MyZutan);
