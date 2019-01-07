@@ -1,8 +1,11 @@
 // MyZutanRow.tsx
 
 import React, { Component } from 'react';
-import styled from 'styled-components'
-import Grid from '@material-ui/core/Grid';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
@@ -10,29 +13,28 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 
-// RowDiv
-const RowDiv = styled.div`
-  margin: 10px 0;
-`;
-
-// WordImg
-const WordImg = styled.img`
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-`;
-// MoreImgIconButton
-const MoreImgIconButton = styled(IconButton)`
-  && {
-    margin-left: auto;
+// styles
+const styles = theme => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    padding: '10px'
+  },
+  gridList: {
+    flexWrap: 'nowrap'
   }
-` as any;
+}) as any;
 
 // MyZutanRowProps
 interface MyZutanRowProps {
-  // TODO: cleanup type.
-  words: string[];
-  word2urls: {[word: string]: string[]};
+  classes: any;
+  // TODO
+  // words: string[];
+  // word2urls: {[word: string]: string[]};
+  word: string;
+  urls: string[];
 }
 
 // MyZutanRow
@@ -40,45 +42,31 @@ class MyZutanRow extends Component<MyZutanRowProps> {
 
   // render()
   render() {
+    const { classes, word, urls } = this.props;
     return (
-      <RowDiv>
-        <Grid
-          container
-          spacing={8}>
-        {
-          this.props.words.map((word, i) => (
-            <Grid key={i} item xs>
-              <Card raised>
-                <CardHeader
-                  avatar={
-                    <Avatar aria-label="Word">
-                      {word[0] && word[0].toUpperCase()}
-                    </Avatar>
-                  }
-                  title={word}
-                />
-                <CardContent>
-                 <WordImg src={this.props.word2urls[word][0]} />
-                </CardContent>
-                {
-                //<CardActions>
-                //  {
-                //    1 < word2urls[word].length && (
-                //      <MoreImgIconButton>
-                //        <MoreHorizIcon />
-                //      </MoreImgIconButton>
-                //    )
-                //  }
-                //</CardActions>
-                }
-              </Card>
-            </Grid>
-          ))
-        }
-        </Grid>
-      </RowDiv>
+      <div className={classes.root}>
+        <Card key={word} raised>
+          <CardHeader
+            avatar={
+              <Avatar aria-label="Word">
+                {word[0] && word[0].toUpperCase()}
+              </Avatar>
+            }
+            title={word}
+          />
+          <CardContent>
+            <GridList className={classes.gridList} cols={1.2}>
+              {urls.map(url => (
+                <GridListTile key={url}>
+                  <img src={url} alt={word} />
+                </GridListTile>
+              ))}
+            </GridList>
+          </CardContent>
+        </Card>
+      </div>
     );
   }
 }
 
-export default MyZutanRow;
+export default withStyles(styles)(MyZutanRow);

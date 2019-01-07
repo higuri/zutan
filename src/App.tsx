@@ -104,7 +104,7 @@ class App extends Component<any, AppState> {
   // addFirebaseAuthListener()
   addFirebaseAuthListener() {
     firebase.auth().onAuthStateChanged((user) => {
-      console.log('onAuthStateChanged:', user);
+      //console.log('onAuthStateChanged:', user);
       if (user) {
         this.setState({isSignedIn: true});
       } else {

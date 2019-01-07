@@ -55,7 +55,8 @@ class MyZutan extends Component<any, MyZutanState> {
       }
     })
     words.sort();
-    // rows
+    // TODO: rows for up(middle)
+    /*
     const width = this.props.width;
     let unit;
     switch (width) {
@@ -66,22 +67,22 @@ class MyZutan extends Component<any, MyZutanState> {
         unit = 3;
         break;
     }
-    let rows: string[][] = [];
     words.forEach((word, i) => {
       if (i % unit === 0) {
         rows.push([]);
       }
       rows[rows.length - 1].push(word);
     });
+    */
     //
     return (
       <MyZutanDiv>
         {
-          rows.map((word, i) => (
+          words.map(word => (
             <MyZutanRow
-              key={i}
-              words={word}
-              word2urls={word2urls}>
+              key={word}
+              word={word}
+              urls={word2urls[word]}>
             </MyZutanRow>
           ))
         }
