@@ -1,6 +1,7 @@
 // App.tsx
 
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import styled from 'styled-components'
 import * as firebase from 'firebase';
 import AppBar from '@material-ui/core/AppBar';
@@ -50,44 +51,35 @@ class App extends Component<any, AppState> {
     const signInNeeded = isMock ?  false : !this.state.isSignedIn;
     const isShowMyZutan = this.state.isShowMyZutan;
     const AppMain = (
-      <div>
-        <AppBar position="static">
-          <AppToolbar>
-            {/*
-              isShowMyZutan ? (
-                <TextField
-                  placeholder="Zu..."
-                  style={{backgroundColor: 'white'}}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <SearchIcon
-                          onClick={this.onSearchButtonClicked}
-                        />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              ) : null
-            */}
-              
-            <IconButton
-              color="inherit"
-              onClick={this.onMyZutanButtonClicked}>
-              <PhotoLibraryIcon />
-            </IconButton>
-            <IconButton color="inherit"
-              onClick={this.onHomeButtonClicked}>
-              <HomeIcon />
-            </IconButton>
-          </AppToolbar>
-        </AppBar>
-        {
-          isShowMyZutan ?
-            <MyZutan isMock={isMock} /> : 
-            <WordSearch isMock={isMock} />
-        }
-      </div>
+      // TODO: fix - back to root => blank page.
+      <Router>
+        <div>
+          <AppBar position="static">
+            <AppToolbar>
+              <IconButton
+                color="inherit"
+                onClick={this.onMyZutanButtonClicked}>
+                <PhotoLibraryIcon />
+              </IconButton>
+              <IconButton color="inherit"
+                onClick={this.onHomeButtonClicked}>
+                <HomeIcon />
+              </IconButton>
+            </AppToolbar>
+          </AppBar>
+          {
+            isShowMyZutan ?
+              <Redirect push to="/myzutan" /> :
+              <Redirect push to="/search" />
+          }
+        <Route
+          path="/search" 
+          render={ () => <WordSearch isMock={isMock} /> } />
+        <Route
+          path="/myzutan" 
+          render={ () => <MyZutan isMock={isMock} /> } />
+        </div>
+      </Router>
     );
     return (
       <AppDiv>
