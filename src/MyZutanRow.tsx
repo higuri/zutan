@@ -24,6 +24,13 @@ const styles = theme => ({
   },
   gridList: {
     flexWrap: 'nowrap'
+  },
+  img: {
+    maxWidth: '100%',
+    maxHeight: '100%',
+    margin: '0 10px',
+    objectFit: 'contain',
+    objectPosition: '0 50%'
   }
 }) as any;
 
@@ -58,7 +65,7 @@ class MyZutanRow extends Component<MyZutanRowProps> {
             <GridList className={classes.gridList} cols={1.2}>
               {urls.map(url => (
                 <GridListTile key={url}>
-                  <img src={url} alt={word} />
+                  <img className={classes.img} src={url} alt={word} />
                 </GridListTile>
               ))}
             </GridList>
