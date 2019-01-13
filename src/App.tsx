@@ -67,17 +67,19 @@ class App extends Component<any, AppState> {
               </IconButton>
             </AppToolbar>
           </AppBar>
-          {
-            isShowMyZutan ?
-              <Redirect push to="/myzutan" /> :
-              <Redirect push to="/search" />
-          }
-        <Route
-          path="/search" 
-          render={ () => <WordSearch isMock={isMock} /> } />
-        <Route
-          path="/myzutan" 
-          render={ () => <MyZutan isMock={isMock} /> } />
+          <Route
+            exact path="/"
+            render={ () =>
+              isShowMyZutan ?
+                <Redirect push to="/myzutan" /> :
+                <Redirect push to="/search" />
+            } />
+          <Route
+            path="/search" 
+            render={ () => <WordSearch isMock={isMock} /> } />
+          <Route
+            path="/myzutan" 
+            render={ () => <MyZutan isMock={isMock} /> } />
         </div>
       </Router>
     );
