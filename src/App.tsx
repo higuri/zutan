@@ -1,7 +1,8 @@
 // App.tsx
 
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import React, {Component} from 'react';
+import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
+import {withRouter} from 'react-router';
 import styled from 'styled-components'
 import * as firebase from 'firebase';
 import AppBar from '@material-ui/core/AppBar';
@@ -30,7 +31,6 @@ const AppToolbar = styled(Toolbar)`
 // App
 interface AppState {
   isSignedIn: boolean;
-  isShowMyZutan: boolean;
 }
 class App extends Component<any, AppState> {
 
@@ -38,48 +38,39 @@ class App extends Component<any, AppState> {
   constructor(props) {
     super(props);
     this.state = {
-      isSignedIn: false,
-      isShowMyZutan: false
+      isSignedIn: false
     }
-    this.onMyZutanButtonClicked = this.onMyZutanButtonClicked.bind(this);
-    this.onHomeButtonClicked = this.onHomeButtonClicked.bind(this);
   }
 
   // render()
   render() {
 		const isMock = this.props.isMock;
     const signInNeeded = isMock ?  false : !this.state.isSignedIn;
-    const isShowMyZutan = this.state.isShowMyZutan;
+    // AppMain
     const AppMain = (
-      // TODO: fix - back to root => blank page.
       <Router>
         <div>
-          <AppBar position="static">
-            <AppToolbar>
-              <IconButton
-                color="inherit"
-                onClick={this.onMyZutanButtonClicked}>
-                <PhotoLibraryIcon />
-              </IconButton>
-              <IconButton color="inherit"
-                onClick={this.onHomeButtonClicked}>
-                <HomeIcon />
-              </IconButton>
-            </AppToolbar>
-          </AppBar>
+          <Route render={({history}) => (
+            <AppBar position="static">
+              <AppToolbar>
+                <IconButton
+                  color="inherit"
+                  onClick={() => history.push('/myzutan')}>
+                  <PhotoLibraryIcon />
+                </IconButton>
+                <IconButton color="inherit"
+                  onClick={() => history.push('/')}>
+                  <HomeIcon />
+                </IconButton>
+              </AppToolbar>
+            </AppBar>
+          )} />
           <Route
-            exact path="/"
-            render={ () =>
-              isShowMyZutan ?
-                <Redirect push to="/myzutan" /> :
-                <Redirect push to="/search" />
-            } />
-          <Route
-            path="/search" 
-            render={ () => <WordSearch isMock={isMock} /> } />
+            exact path="/" 
+            render={() => <WordSearch isMock={isMock} />} />
           <Route
             path="/myzutan" 
-            render={ () => <MyZutan isMock={isMock} /> } />
+            render={() => <MyZutan isMock={isMock} />} />
         </div>
       </Router>
     );
@@ -105,16 +96,6 @@ class App extends Component<any, AppState> {
         this.setState({isSignedIn: false});
       }
     });
-  }
-
-  // onMyZutanButtonClicked()
-  onMyZutanButtonClicked(): void {
-    this.setState({isShowMyZutan: true});
-  }
-
-  // onHomeButtonClicked()
-  onHomeButtonClicked(): void {
-    this.setState({isShowMyZutan: false});
   }
 }
 
