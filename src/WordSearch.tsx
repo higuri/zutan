@@ -38,23 +38,17 @@ const SearchFormDiv = styled.div`
 `;
 // SearchTextField
 const SearchTextField = styled(TextField)`
-  && {
-    margin-left: auto;
-    margin-right: auto;
-  }
+  margin-left: auto;
+  margin-right: auto;
 ` as any;
 // SearchButton
 const SearchButton = styled(Button)`
-  && {
-    margin-top: 20px;
-  }
+  margin-top: 20px;
 ` as any;
 const ImageDialog = styled(Dialog)`
-  && {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 ` as any;
 // SelectedImg
 const SelectedImg = styled.img`
@@ -64,12 +58,10 @@ const SelectedImg = styled.img`
 `;
 // AddButton
 const AddButton = styled(Button)`
-  && {
-    height: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 20px;
-  }
+  height: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
 ` as any;
 
 // ImageURL

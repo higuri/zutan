@@ -1,10 +1,9 @@
 // MyZutanRow.tsx
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import styled from 'styled-components'
 import Grid from '@material-ui/core/Grid';
-import GridList from '@material-ui/core/GridList';
+import MUIGridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import Card from '@material-ui/core/Card';
@@ -17,26 +16,28 @@ import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-// styles
-const styles = theme => ({
-  root: {
-    margin: '10px 0'
-  },
-  gridList: {
-    flexWrap: 'nowrap'
-  },
-  img: {
-    maxWidth: '100%',
-    maxHeight: '100%',
-    padding: '0 10px',
-    objectFit: 'contain',
-    objectPosition: '0 50%'
-  }
-}) as any;
+// RowDiv
+const RowDiv = styled.div`
+  margin: 10px 0;
+`;
+// GridList
+const GridList = styled(MUIGridList)`
+  flex-wrap: nowrap;
+` as any;
+// WordImg
+// XXX: object-position
+const WordImg = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+  padding: 0 10px;
+  object-fit: contain;
+  object-position: 0 50%;
+`;
+
+////
 
 // MyZutanRowProps
 interface MyZutanRowProps {
-  classes: any;
   words: string[];
   word2urls: {[word: string]: string[]};
 }
@@ -62,11 +63,11 @@ class MyZutanRow extends Component<MyZutanRowProps, MyZutanRowState> {
 
   // render()
   render() {
-    const { classes, words, word2urls } = this.props;
-    const { anchorEl } = this.state;
+    const {words, word2urls} = this.props;
+    const {anchorEl} = this.state;
     const bShow = Boolean(anchorEl);
     return (
-      <div className={classes.root}>
+      <RowDiv>
         <Grid container spacing={16}>{ words.map((word) => (
           <Grid key={word} item xs>
             <Card raised>
@@ -105,10 +106,10 @@ class MyZutanRow extends Component<MyZutanRowProps, MyZutanRowState> {
                 title={word}
               />
               <CardContent>
-                <GridList className={classes.gridList} cols={1.2}>
+                <GridList cols={1.2}>
                   {word2urls[word].map(url => (
                     <GridListTile key={url}>
-                      <img className={classes.img} src={url} alt={word} />
+                      <WordImg src={url} alt={word} />
                     </GridListTile>
                   ))}
                 </GridList>
@@ -116,7 +117,7 @@ class MyZutanRow extends Component<MyZutanRowProps, MyZutanRowState> {
             </Card>
           </Grid>
         ))}</Grid>
-      </div>
+      </RowDiv>
     );
   }
 
@@ -138,4 +139,4 @@ class MyZutanRow extends Component<MyZutanRowProps, MyZutanRowState> {
   }
 }
 
-export default withStyles(styles)(MyZutanRow);
+export default MyZutanRow;

@@ -2,7 +2,9 @@
 
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
-import {withRouter} from 'react-router';
+import JssProvider from 'react-jss/lib/JssProvider';
+import {create} from 'jss';
+import {createGenerateClassName, jssPreset} from '@material-ui/core/styles';
 import styled from 'styled-components'
 import * as firebase from 'firebase';
 import AppBar from '@material-ui/core/AppBar';
@@ -22,10 +24,8 @@ const AppDiv = styled.div`
 
 // AppToolbar
 const AppToolbar = styled(Toolbar)`
-  && {
-    display: flex;
-    justify-content: flex-end;
-  }
+  display: flex;
+  justify-content: flex-end;
 ` as any;
 
 // App
@@ -44,7 +44,7 @@ class App extends Component<any, AppState> {
 
   // render()
   render() {
-		const isMock = this.props.isMock;
+    const isMock = this.props.isMock;
     const signInNeeded = isMock ?  false : !this.state.isSignedIn;
     // AppMain
     const AppMain = (
@@ -74,10 +74,18 @@ class App extends Component<any, AppState> {
         </div>
       </Router>
     );
+    // material-ui
+    const generateClassName = createGenerateClassName();
+    const jss = create({
+      ...jssPreset(),
+      insertionPoint: document.getElementById('jss-insertion-point')!
+    });
     return (
-      <AppDiv>
-        {signInNeeded ?  <SignIn /> : AppMain}
-      </AppDiv>
+      <JssProvider jss={jss} generateClassName={generateClassName}>
+        <AppDiv>
+          {signInNeeded ?  <SignIn /> : AppMain}
+        </AppDiv>
+      </JssProvider>
     );
   }
 
