@@ -4,7 +4,9 @@ import React, { Component } from 'react';
 import styled from 'styled-components'
 import withWidth from '@material-ui/core/withWidth';
 import * as firebase from 'firebase';
+
 import * as mockData from './mockData';
+import AppBar from './AppBar';
 import MyZutanRow from './MyZutanRow';
 
 // MyZutanDiv
@@ -26,6 +28,8 @@ class MyZutan extends Component<any, MyZutanState> {
       zutanObjects: [],
       isZutanObjectsReady: false
     };
+    this.onClickHome = this.onClickHome.bind(this);
+    this.onClickMyZutan = this.onClickMyZutan.bind(this);
   }
 
   // componentDidMount()
@@ -72,17 +76,22 @@ class MyZutan extends Component<any, MyZutanState> {
     });
     //
     return (
-      <MyZutanDiv>
-        {
-          wordRows.map((words, i) => (
-            <MyZutanRow
-              key={i}
-              words={words}
-              word2urls={word2urls}>
-            </MyZutanRow>
-          ))
-        }
-      </MyZutanDiv>
+      <div>
+        <AppBar
+          onClickHome={this.onClickHome}
+          onClickMyZutan={this.onClickMyZutan} />
+        <MyZutanDiv>
+          {
+            wordRows.map((words, i) => (
+              <MyZutanRow
+                key={i}
+                words={words}
+                word2urls={word2urls}>
+              </MyZutanRow>
+            ))
+          }
+        </MyZutanDiv>
+      </div>
     );
   }
 
@@ -117,6 +126,16 @@ class MyZutan extends Component<any, MyZutanState> {
       zutanObjects: mockData.zutanObjects,
       isZutanObjectsReady: true
     });
+  }
+
+  // onClickHome()
+  onClickHome() {
+    this.props.history.push('/');
+  }
+
+  // onClickMyZutan()
+  onClickMyZutan() {
+    this.props.history.push('/myzutan');
   }
 }
 

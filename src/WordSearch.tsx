@@ -10,6 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
 import * as firebase from 'firebase';
 
+import AppBar from './AppBar';
 import SearchResult from './SearchResult';
 import {GOOGLE_CUSTOM_SEARCH_API_KEY} from './apikeys';
 import {GOOGLE_CUSTOM_SEARCH_ENGINE_ID} from './apikeys';
@@ -95,6 +96,8 @@ class WordSearch extends Component<any, WordSearchState> {
     this.onImageClicked = this.onImageClicked.bind(this);
     this.onMoreResultsClicked = this.onMoreResultsClicked.bind(this);
     this.onDialogClosed = this.onDialogClosed.bind(this);
+    this.onClickHome = this.onClickHome.bind(this);
+    this.onClickMyZutan = this.onClickMyZutan.bind(this);
   }
 
   // render()
@@ -107,6 +110,9 @@ class WordSearch extends Component<any, WordSearchState> {
         "" : this.state.imageURLs[this.state.iSelectedImageURL!].fullsize;
     return (
       <div>
+        <AppBar
+          onClickHome={this.onClickHome}
+          onClickMyZutan={this.onClickMyZutan} />
         <LogoImg
           src={zutanIcon}
           alt="logo">
@@ -195,6 +201,20 @@ class WordSearch extends Component<any, WordSearchState> {
   // onDialogClosed()
   onDialogClosed() {
     this.setState({iSelectedImageURL: null});
+  }
+
+  // onClickHome()
+  onClickHome() {
+    this.setState({
+      queryText: '',
+      imageURLs: []
+    });
+    this.props.history.push('/');
+  }
+
+  // onClickMyZutan()
+  onClickMyZutan() {
+    this.props.history.push('/myzutan');
   }
 
 	// addToFirestore()

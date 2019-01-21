@@ -7,11 +7,6 @@ import {create} from 'jss';
 import {createGenerateClassName, jssPreset} from '@material-ui/core/styles';
 import styled from 'styled-components'
 import * as firebase from 'firebase';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import HomeIcon from '@material-ui/icons/Home';
-import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import SignIn from './SignIn';
 import WordSearch from './WordSearch';
 import MyZutan from './MyZutan';
@@ -21,12 +16,6 @@ const AppDiv = styled.div`
   width: 100%;
   height: 100%;
 `;
-
-// AppToolbar
-const AppToolbar = styled(Toolbar)`
-  display: flex;
-  justify-content: flex-end;
-` as any;
 
 // App
 interface AppState {
@@ -46,40 +35,29 @@ class App extends Component<any, AppState> {
   render() {
     const isMock = this.props.isMock;
     const signInNeeded = isMock ?  false : !this.state.isSignedIn;
-    // AppMain
-    const AppMain = (
-      <Router>
-        <div>
-          <Route render={({history}) => (
-            <AppBar position="static">
-              <AppToolbar>
-                <IconButton
-                  color="inherit"
-                  onClick={() => history.push('/myzutan')}>
-                  <PhotoLibraryIcon />
-                </IconButton>
-                <IconButton color="inherit"
-                  onClick={() => history.push('/')}>
-                  <HomeIcon />
-                </IconButton>
-              </AppToolbar>
-            </AppBar>
-          )} />
-          <Route
-            exact path="/" 
-            render={() => <WordSearch isMock={isMock} />} />
-          <Route
-            path="/myzutan" 
-            render={() => <MyZutan isMock={isMock} />} />
-        </div>
-      </Router>
-    );
     // material-ui
     const generateClassName = createGenerateClassName();
     const jss = create({
       ...jssPreset(),
       insertionPoint: document.getElementById('jss-insertion-point')!
     });
+    // AppMain
+    const AppMain = (
+      <Router>
+        <div>
+          <Route exact path="/" render={({history}) =>
+            <WordSearch
+              history={history}
+              isMock={isMock} />}
+          />
+          <Route path="/myzutan" render={({history}) =>
+            <MyZutan
+              history={history}
+              isMock={isMock} />}
+          />
+        </div>
+      </Router>
+    );
     return (
       <JssProvider jss={jss} generateClassName={generateClassName}>
         <AppDiv>
