@@ -1,14 +1,21 @@
 TODO.txt
-* Organize Components
-* AppBar
-  - search
-  - logout (AccountCircle)
 * Demo Page (gh-pages)
   - Demo Page: Card
     onhover: just return result about 'apple'
-    click to view how to setup your own.
+             click this to view how to setup your own.
+             -> .../zutan#howtoconfigure
 * README
-  - how to configure
-    apiKeys.js
+  - how to configure apiKeys.js
+----
+* Enter -> Searh (PC/Mobile)
+* anonymous login
+  - login / logout
+  - AppBar: AccountCircle
+* save raw image.
+  request img data -> base64
+  -> xhr: SOP...
+  -> Dropbox (saveURL) ?
+* router: /search?query=XXX
+* PWA
 * Lint
 * DB: Dropbox, Google Drive, OneDrive
