@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import withWidth from '@material-ui/core/withWidth';
 import * as firebase from 'firebase';
 
-import * as mockData from './mockData';
+import {mockMyZutanObjects} from './mockData';
 import AppBar from './AppBar';
 import MyZutanRow from './MyZutanRow';
 
@@ -123,7 +123,7 @@ class MyZutan extends Component<any, MyZutanState> {
   // loadZutanMockObjects()
   private loadZutanMockObjects(): void {
     this.setState({
-      zutanObjects: mockData.zutanObjects,
+      zutanObjects: mockMyZutanObjects,
       isZutanObjectsReady: true
     });
   }

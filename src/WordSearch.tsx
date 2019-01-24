@@ -15,7 +15,7 @@ import SearchResult from './SearchResult';
 import {GOOGLE_CUSTOM_SEARCH_API_KEY} from './apikeys';
 import {GOOGLE_CUSTOM_SEARCH_ENGINE_ID} from './apikeys';
 import zutanIcon from './images/zutan.svg';
-import * as mockData from './mockData';
+import {mockSearchResult, mockMyZutanObjects} from './mockData';
 
 // LogoImg
 const LogoImg = styled.img`
@@ -231,7 +231,10 @@ class WordSearch extends Component<any, WordSearchState> {
 
 	// addToMockObjects()
 	private addToMockObjects(zutanObject: any): void {
-		mockData.zutanObjects.push(zutanObject);
+    mockMyZutanObjects.push({
+      word: zutanObject.word,
+      imageURL: zutanObject.imageURL
+    });
 	}
 
   // startImageSearch()
@@ -264,9 +267,9 @@ class WordSearch extends Component<any, WordSearchState> {
     // queryText: 
     this.setState({queryText: query});
     // searchResult:
-    const imageURLs = mockData.searchResult.map((item) => {
+    const imageURLs = mockSearchResult.map((item) => {
       return new ImageURL(
-        query, item.link, item.thumbnailLink);
+        query, item.full, item.thumb);
     });
     this.setState({imageURLs: imageURLs});
   }

@@ -6,8 +6,9 @@ TODO.txt
              -> .../zutan#howtoconfigure
 * README
   - how to configure apiKeys.js
-----
+
 * Enter -> Searh (PC/Mobile)
+----
 * anonymous login
   - login / logout
   - AppBar: AccountCircle
