@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/zutan/precache-manifest.2b3fde8253122ffbefda89ac8a1b2143.js"
+  "/zutan/precache-manifest.c1610393e72a7decbff2976c4a983c7a.js"
 );
 
 workbox.clientsClaim();
