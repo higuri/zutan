@@ -148,14 +148,14 @@ class WordSearch extends Component<any, WordSearchState> {
             variant="outlined">
             ZU
           </SearchButton>
-        </SearchForm> { isSearching ? (
-          <ProgressDiv>
-            <CircularProgress disableShrink />
-          </ProgressDiv> ) : (
-          <SearchResult
-            imageURLs={thumbnailURLs}
-            onImageClicked={this.onImageClicked}
-            onMoreResultsClicked={this.onMoreResultsClicked} /> ) }
+        </SearchForm> { isSearching ?
+        <ProgressDiv>
+          <CircularProgress disableShrink />
+        </ProgressDiv> :
+        <SearchResult
+          imageURLs={thumbnailURLs}
+          onImageClicked={this.onImageClicked}
+          onMoreResultsClicked={this.onMoreResultsClicked} /> }
         <ImageDialog
           open={this.state.iSelectedImageURL !== null}
           onClose={this.onDialogClosed}>
@@ -176,12 +176,16 @@ class WordSearch extends Component<any, WordSearchState> {
   onSubmit(e): void {
     e.preventDefault();
     this.textField.current.blur();
-    this.setState({imageURLs: []}, () => {
+    this.setState({
+      imageURLs: [],
+      isSearching: true
+    }, async () => {
       if (this.props.isMock) {
         this.addMockResult();
       } else {
-        this.startImageSearch(this.state.queryText);
+        await this.startImageSearch(this.state.queryText);
       }
+      this.setState({isSearching: false});
     });
   }
 
@@ -262,7 +266,6 @@ class WordSearch extends Component<any, WordSearchState> {
 
   // startImageSearch()
   async startImageSearch(query) {
-    this.setState({isSearching: true});
     const imageURLs = this.state.imageURLs;
     const url = 'https://www.googleapis.com/customsearch/v1' +
       '?key=' + GOOGLE_CUSTOM_SEARCH_API_KEY + 
@@ -283,7 +286,6 @@ class WordSearch extends Component<any, WordSearchState> {
       );
     }
     this.setState({
-      isSearching: false,
       imageURLs: imageURLs.concat(urls)
     });
   }

@@ -53,30 +53,21 @@ class SearchResult extends Component<SearchResultProps> {
     });
     //
     return (
-      <ResultDiv>
-        {
-          rows.map((urls, i) => (
-            <SearchResultRow
-              key={i}
-              imageURLs={urls}
-              onImageClicked={(j) => {
-                this.props.onImageClicked(i*unit + j);
-              }}>
-            </SearchResultRow>
-          ))
-        }
-        {
-          (0 < this.props.imageURLs.length) && (
-            <MoreResultsDiv>
-              <Fab
-                variant="extended"
-                onClick={this.props.onMoreResultsClicked}>
-                <KeyboardArrowDownIcon />
-                More Results
-              </Fab>
-            </MoreResultsDiv>
-          )
-        }
+      <ResultDiv> { rows.map((urls, i) =>
+        <SearchResultRow
+          key={i}
+          imageURLs={urls}
+          onImageClicked={(j) => {
+            this.props.onImageClicked(i*unit + j);
+          }} /> ) } { (0 < this.props.imageURLs.length) && 
+        <MoreResultsDiv>
+          <Fab
+            variant="extended"
+            onClick={this.props.onMoreResultsClicked}>
+            <KeyboardArrowDownIcon />
+            More Results
+          </Fab>
+        </MoreResultsDiv> }
       </ResultDiv>
     );
   }

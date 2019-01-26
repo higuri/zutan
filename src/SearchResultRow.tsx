@@ -29,25 +29,22 @@ class SearchResultRow extends Component<SearchResultRowProps> {
 
   // render()
   render() {
+    const imageURLs = this.props.imageURLs;
     return (
       <RowDiv>
         <Grid
           container
           alignItems='center'
-          spacing={8}>
-        {
-          this.props.imageURLs.map((url, i) => (
-            <Grid key={i} item xs>
-              <Card
-                raised
-                onClick={() => this.props.onImageClicked(i)}>
-                <CardContent>
-                  <ResultImg src={url} />
-                </CardContent>
-              </Card>
-            </Grid>
-          ))
-        }
+          spacing={8}> { imageURLs.map((url, i) => 
+          <Grid key={url} item xs>
+            <Card
+              raised
+              onClick={() => this.props.onImageClicked(i)}>
+              <CardContent>
+                <ResultImg src={url} />
+              </CardContent>
+            </Card>
+          </Grid> ) }
         </Grid>
       </RowDiv>
     );

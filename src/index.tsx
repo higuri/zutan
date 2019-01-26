@@ -10,7 +10,7 @@ import {GOOGLE_FIREBASE_API_KEY} from './apikeys';
 const firebaseConfig = {
   apiKey: GOOGLE_FIREBASE_API_KEY,
   authDomain: 'zu-tan.firebaseapp.com',
-  projectId: 'zu-tan',
+  projectId: 'zu-tan'
 };
 require("firebase/firestore");
 firebase.initializeApp(firebaseConfig);
@@ -18,7 +18,8 @@ firebase.firestore().settings({
   timestampsInSnapshots: true
 });
 let isMock = false;
-console.log('process.env.REACT_APP_MOCK: ' + process.env.REACT_APP_MOCK)
+console.log('process.env.REACT_APP_MOCK: ' + process.env.REACT_APP_MOCK);
+console.log('process.env.PUBLIC_URL: ' + process.env.PUBLIC_URL);
 if (process.env.REACT_APP_MOCK) {
   isMock = true;
 }
