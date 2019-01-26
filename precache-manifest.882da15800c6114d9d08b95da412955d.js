@@ -8,15 +8,15 @@ self.__precacheManifest = [
     "url": "/zutan/static/js/runtime~main.8bfdf179.js"
   },
   {
-    "revision": "ae2a1dec9f96328285af",
-    "url": "/zutan/static/js/main.ae2a1dec.chunk.js"
+    "revision": "31db7ca16c33730c06fd",
+    "url": "/zutan/static/js/main.31db7ca1.chunk.js"
   },
   {
     "revision": "7e63bab4850518235cf5",
     "url": "/zutan/static/js/1.7e63bab4.chunk.js"
   },
   {
-    "revision": "ae2a1dec9f96328285af",
+    "revision": "31db7ca16c33730c06fd",
     "url": "/zutan/static/css/main.71d14062.chunk.css"
   },
   {
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/zutan/static/css/1.9ea5892f.chunk.css"
   },
   {
-    "revision": "553e3bc016b9ed9a0c032b95bd2b1a78",
+    "revision": "6793eaff1ae3de26abd50fe71cd4c79f",
     "url": "/zutan/index.html"
   }
 ];
