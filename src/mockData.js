@@ -42,7 +42,12 @@ const mockSearchResult = [
     thumb: '/mockdata/apple9_thumb.png',
     full: '/mockdata/apple9_full.png'
   }
-];
+].map(obj => {
+  return {
+    thumb: process.env.PUBLIC_URL + obj.thumb,
+    full: process.env.PUBLIC_URL + obj.full
+  };
+});
 
 // mockMyZutanObjects
 let mockMyZutanObjects = [
@@ -62,7 +67,12 @@ let mockMyZutanObjects = [
     word: 'doggy',
     imageURL: '/mockdata/doggy1_full.jpg'
   }
-]
+].map(obj => {
+  return {
+    word: obj.word,
+    imageURL: process.env.PUBLIC_URL + obj.imageURL
+  };
+});
 
 export {
   mockSearchResult,

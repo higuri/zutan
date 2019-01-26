@@ -6,9 +6,10 @@ TODO.txt
              -> .../zutan#howtoconfigure
 * README
   - how to configure apiKeys.js
-* MyZutanCard: implement submenu
+  - change package.json: homepage
 ----
 * Row: fill blank columns
+* MyZutanCard: Delete
 * anonymous login
   - login / logout
   - AppBar: AccountCircle

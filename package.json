@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
+  "homepage": "https://higuri.github.io/zutan",
   "dependencies": {
     "@material-ui/core": "^3.6.2",
     "firebase": "^5.5.9",

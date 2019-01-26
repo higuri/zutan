@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import * as firebase from 'firebase';
 
 import AppBar from './AppBar';
@@ -29,6 +30,13 @@ const MockVersionDiv = styled.div`
   text-align: center;
   font-size: 20px;
   margin-bottom: 20px;
+`;
+// ProgressDiv
+const ProgressDiv = styled.div`
+  width: 100%;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
 `;
 // SearchForm
 const SearchForm = styled.form`
@@ -77,6 +85,7 @@ class ImageURL {
 // WordSearch
 interface WordSearchState {
   queryText: string;
+  isSearching: boolean;
   imageURLs: ImageURL[];
   iSelectedImageURL: number | null;
 }
@@ -90,6 +99,7 @@ class WordSearch extends Component<any, WordSearchState> {
     super(props);
     this.state = {
       queryText: '',
+      isSearching: false,
       imageURLs: [],
       iSelectedImageURL: null
     };
@@ -107,6 +117,7 @@ class WordSearch extends Component<any, WordSearchState> {
   // render()
   render() {
     const isMock = this.props.isMock;
+    const isSearching = this.state.isSearching;
     const thumbnailURLs = this.state.imageURLs.map(
       (url) => url.thumbnail
     );
@@ -137,11 +148,14 @@ class WordSearch extends Component<any, WordSearchState> {
             variant="outlined">
             ZU
           </SearchButton>
-        </SearchForm>
-        <SearchResult
-          imageURLs={thumbnailURLs}
-          onImageClicked={this.onImageClicked}
-          onMoreResultsClicked={this.onMoreResultsClicked} />
+        </SearchForm> { isSearching ? (
+          <ProgressDiv>
+            <CircularProgress disableShrink />
+          </ProgressDiv> ) : (
+          <SearchResult
+            imageURLs={thumbnailURLs}
+            onImageClicked={this.onImageClicked}
+            onMoreResultsClicked={this.onMoreResultsClicked} /> ) }
         <ImageDialog
           open={this.state.iSelectedImageURL !== null}
           onClose={this.onDialogClosed}>
@@ -248,6 +262,7 @@ class WordSearch extends Component<any, WordSearchState> {
 
   // startImageSearch()
   async startImageSearch(query) {
+    this.setState({isSearching: true});
     const imageURLs = this.state.imageURLs;
     const url = 'https://www.googleapis.com/customsearch/v1' +
       '?key=' + GOOGLE_CUSTOM_SEARCH_API_KEY + 
@@ -267,7 +282,10 @@ class WordSearch extends Component<any, WordSearchState> {
         query, item.link, item.image.thumbnailLink)
       );
     }
-    this.setState({imageURLs: imageURLs.concat(urls)});
+    this.setState({
+      isSearching: false,
+      imageURLs: imageURLs.concat(urls)
+    });
   }
 
   // addMockResult()

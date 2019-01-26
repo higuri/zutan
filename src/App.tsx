@@ -43,7 +43,7 @@ class App extends Component<any, AppState> {
     });
     // AppMain
     const AppMain = (
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <div>
           <Route exact path="/" render={({history}) =>
             <WordSearch
