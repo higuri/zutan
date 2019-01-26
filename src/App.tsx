@@ -36,7 +36,9 @@ class App extends Component<any, AppState> {
     const isMock = this.props.isMock;
     const signInNeeded = isMock ?  false : !this.state.isSignedIn;
     // material-ui
-    const generateClassName = createGenerateClassName();
+    const generateClassName = createGenerateClassName({
+      dangerouslyUseGlobalCSS: true
+    });
     const jss = create({
       ...jssPreset(),
       insertionPoint: document.getElementById('jss-insertion-point')!
