@@ -82,6 +82,9 @@ interface WordSearchState {
 }
 class WordSearch extends Component<any, WordSearchState> {
 
+  // textField
+  private textField: any;
+
   // WordSearch
   constructor(props) {
     super(props);
@@ -90,6 +93,7 @@ class WordSearch extends Component<any, WordSearchState> {
       imageURLs: [],
       iSelectedImageURL: null
     };
+    this.textField = React.createRef();
     this.onTextInputChanged = this.onTextInputChanged.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onAddButtonClicked = this.onAddButtonClicked.bind(this);
@@ -123,6 +127,7 @@ class WordSearch extends Component<any, WordSearchState> {
         <SearchForm onSubmit={this.onSubmit}>
           <SearchTextField
             autoFocus={true}
+            inputRef={this.textField}
             type="search"
             variant="outlined"
             value={this.state.queryText}
@@ -156,6 +161,8 @@ class WordSearch extends Component<any, WordSearchState> {
   // onSubmit()
   onSubmit(e): void {
     e.preventDefault();
+    console.log('===>', this.textField.current);
+    this.textField.current.blur();
     if (this.props.isMock) {
       this.addMockResult();
     } else {
