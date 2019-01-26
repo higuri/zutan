@@ -30,8 +30,8 @@ const MockVersionDiv = styled.div`
   font-size: 20px;
   margin-bottom: 20px;
 `;
-// SearchFormDiv
-const SearchFormDiv = styled.div`
+// SearchForm
+const SearchForm = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -91,7 +91,7 @@ class WordSearch extends Component<any, WordSearchState> {
       iSelectedImageURL: null
     };
     this.onTextInputChanged = this.onTextInputChanged.bind(this);
-    this.onZuButtonClicked = this.onZuButtonClicked.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
     this.onAddButtonClicked = this.onAddButtonClicked.bind(this);
     this.onImageClicked = this.onImageClicked.bind(this);
     this.onMoreResultsClicked = this.onMoreResultsClicked.bind(this);
@@ -120,19 +120,19 @@ class WordSearch extends Component<any, WordSearchState> {
         <MockVersionDiv>
           {isMock ? '--- Mock Version ---' : null}
         </MockVersionDiv>
-        <SearchFormDiv>
+        <SearchForm onSubmit={this.onSubmit}>
           <SearchTextField
             autoFocus={true}
+            type="search"
             variant="outlined"
             value={this.state.queryText}
-            onChange={this.onTextInputChanged}
-          />
+            onChange={this.onTextInputChanged} />
           <SearchButton
-            variant="outlined"
-            onClick={this.onZuButtonClicked}>
+            type="submit"
+            variant="outlined">
             ZU
           </SearchButton>
-        </SearchFormDiv>
+        </SearchForm>
         <SearchResult
           imageURLs={thumbnailURLs}
           onImageClicked={this.onImageClicked}
@@ -153,8 +153,9 @@ class WordSearch extends Component<any, WordSearchState> {
     );
   }
 
-  // onZuButtonClicked()
-  onZuButtonClicked(): void {
+  // onSubmit()
+  onSubmit(e): void {
+    e.preventDefault();
     if (this.props.isMock) {
       this.addMockResult();
     } else {

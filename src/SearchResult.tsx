@@ -38,10 +38,10 @@ class SearchResult extends Component<SearchResultProps> {
         unit = 2;
         break;
       case 'sm':
-        unit = 3;
+        unit = 4;
         break;
       default:
-        unit = 4;
+        unit = 5;
         break;
     }
     let rows: string[][] = [];

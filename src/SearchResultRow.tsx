@@ -13,10 +13,9 @@ const RowDiv = styled.div`
 
 // ResultImg
 const ResultImg = styled.img`
-  max-width: 100%;
-  max-height: 100%;
-  margin: auto;
   object-fit: contain;
+  display: block;
+  margin: auto;
 `;
 
 // SearchResultRowProps
@@ -34,6 +33,7 @@ class SearchResultRow extends Component<SearchResultRowProps> {
       <RowDiv>
         <Grid
           container
+          alignItems='center'
           spacing={8}>
         {
           this.props.imageURLs.map((url, i) => (
