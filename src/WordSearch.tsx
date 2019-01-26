@@ -161,13 +161,14 @@ class WordSearch extends Component<any, WordSearchState> {
   // onSubmit()
   onSubmit(e): void {
     e.preventDefault();
-    console.log('===>', this.textField.current);
     this.textField.current.blur();
-    if (this.props.isMock) {
-      this.addMockResult();
-    } else {
-      this.startImageSearch(this.state.queryText);
-    }
+    this.setState({imageURLs: []}, () => {
+      if (this.props.isMock) {
+        this.addMockResult();
+      } else {
+        this.startImageSearch(this.state.queryText);
+      }
+    });
   }
 
   // onAddButtonClicked()
