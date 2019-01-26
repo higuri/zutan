@@ -12,9 +12,14 @@ import Avatar from '@material-ui/core/Avatar';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import Menu from '@material-ui/core/Menu';
+import MenuList from '@material-ui/core/MenuList';
 import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MUISearchIcon from '@material-ui/icons/Search';
+import MUIDeleteIcon from '@material-ui/icons/Delete';
 
 // RowDiv
 const RowDiv = styled.div`
@@ -33,6 +38,16 @@ const WordImg = styled.img`
   object-fit: contain;
   object-position: 0 50%;
 `;
+// SearchIcon
+const SearchIcon = styled(MUISearchIcon)`
+  position: absolute;
+  right: 5px;
+` as any;
+// DeleteIcon
+const DeleteIcon = styled(MUIDeleteIcon)`
+  position: absolute;
+  right: 5px;
+` as any;
 
 ////
 
@@ -83,24 +98,36 @@ class MyZutanRow extends Component<MyZutanRowProps, MyZutanRowState> {
                       onClick={this.onShowMenuClicked}>
                       <MoreVertIcon />
                     </IconButton>
-                    <Menu
-                      anchorEl={anchorEl}
-                      anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                      }}
-                      transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                      }}
-                      open={bShow}
-                      onClose={this.onMenuClosed}
-                    >
-                      <MenuItem onClick={() => {
-                        this.onWeblioClicked(word)
-                      }}>Weblio</MenuItem>
-                      <MenuItem>Delete (TODO)</MenuItem>
-                    </Menu>
+                    <MenuList>
+                      <Menu
+                        anchorEl={anchorEl}
+                        anchorOrigin={{
+                          vertical: 'top',
+                          horizontal: 'right',
+                        }}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'right',
+                        }}
+                        open={bShow}
+                        onClose={this.onMenuClosed}
+                      >
+                        <MenuItem onClick={() => {
+                          this.onWeblioClicked(word)
+                        }}>
+                          <ListItemIcon>
+                            <SearchIcon />
+                          </ListItemIcon>
+                          <ListItemText primary="Weblio" />
+                        </MenuItem>
+                        <MenuItem>
+                          <ListItemIcon>
+                            <DeleteIcon />
+                          </ListItemIcon>
+                          <ListItemText primary="Delete (TODO)" />
+                        </MenuItem>
+                      </Menu>
+                    </MenuList>
                   </div>
                 }
                 title={word}

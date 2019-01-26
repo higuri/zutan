@@ -6,8 +6,7 @@ TODO.txt
              -> .../zutan#howtoconfigure
 * README
   - how to configure apiKeys.js
-
-* Enter -> Searh (PC/Mobile)
+* MyZutanCard: implement submenu
 ----
 * Row: fill blank columns
 * anonymous login
