@@ -2,10 +2,13 @@
 
 import React, { Component } from 'react';
 import styled from 'styled-components'
-import Fab from '@material-ui/core/Fab';
 import withWidth from '@material-ui/core/withWidth';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import Fab from '@material-ui/core/Fab';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import SearchResultRow from './SearchResultRow';
 
 // ResultDiv
 const ResultDiv = styled.div`
@@ -16,6 +19,12 @@ const MoreResultsDiv = styled.div`
   margin: 10px auto;
   display: flex;
   justify-content: center;
+`;
+// ResultImg
+const ResultImg = styled.img`
+  object-fit: contain;
+  display: block;
+  margin: auto;
 `;
 
 // SearchResultProps
@@ -31,35 +40,32 @@ class SearchResult extends Component<SearchResultProps> {
 
   // render()
   render() {
+    const imageURLs = this.props.imageURLs;
     const width = this.props.width;
-    let unit;
+    let cols;
     switch (width) {
       case 'xs':
-        unit = 2;
+        cols = 2;
         break;
       case 'sm':
-        unit = 4;
+        cols = 4;
         break;
       default:
-        unit = 5;
+        cols = 5;
         break;
     }
-    let rows: string[][] = [];
-    this.props.imageURLs.forEach((url, i) => {
-      if (i % unit === 0) {
-        rows.push([]);
-      }
-      rows[rows.length - 1].push(url);
-    });
     //
     return (
-      <ResultDiv> { rows.map((urls, i) =>
-        <SearchResultRow
-          key={i}
-          imageURLs={urls}
-          onImageClicked={(j) => {
-            this.props.onImageClicked(i*unit + j);
-          }} /> ) } { (0 < this.props.imageURLs.length) && 
+      <ResultDiv>
+        <GridList cols={cols} spacing={16}> { imageURLs.map((url, i) =>
+          <GridListTile key={url}>
+            <Card onClick={() => this.props.onImageClicked(i)}>
+              <CardContent>
+                <ResultImg src={url} />
+              </CardContent>
+            </Card>
+          </GridListTile>)}
+        </GridList> { (0 < this.props.imageURLs.length) && 
         <MoreResultsDiv>
           <Fab
             variant="extended"

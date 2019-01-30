@@ -4,11 +4,28 @@ import React, { Component } from 'react';
 import styled from 'styled-components'
 import withWidth from '@material-ui/core/withWidth';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Grid from '@material-ui/core/Grid';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import Avatar from '@material-ui/core/Avatar';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
+import Menu from '@material-ui/core/Menu';
+import MenuList from '@material-ui/core/MenuList';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import IconButton from '@material-ui/core/IconButton';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MUISearchIcon from '@material-ui/icons/Search';
+import MUIDeleteIcon from '@material-ui/icons/Delete';
 import * as firebase from 'firebase';
 
 import {mockMyZutanObjects} from './mockData';
 import AppBar from './AppBar';
-import MyZutanRow from './MyZutanRow';
 
 // MyZutanDiv
 const MyZutanDiv = styled.div`
@@ -21,10 +38,30 @@ const ProgressDiv = styled.div`
   display: flex;
   justify-content: center;
 `;
+// WordImg
+// XXX: object-position
+const WordImg = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+  padding: 0 10px;
+  object-fit: contain;
+  object-position: 0 50%;
+`;
+// SearchIcon
+const SearchIcon = styled(MUISearchIcon)`
+  position: absolute;
+  right: 5px;
+` as any;
+// DeleteIcon
+const DeleteIcon = styled(MUIDeleteIcon)`
+  position: absolute;
+  right: 5px;
+` as any;
 
 // MyZutan
 interface MyZutanState {
   zutanObjects: any[];
+  anchorEl: HTMLElement | null;
   isZutanObjectsReady: boolean;
 }
 class MyZutan extends Component<any, MyZutanState> {
@@ -34,8 +71,12 @@ class MyZutan extends Component<any, MyZutanState> {
     super(props);
     this.state = {
       zutanObjects: [],
-      isZutanObjectsReady: false
-    };
+      isZutanObjectsReady: false,
+      anchorEl: null
+    }
+    this.onMenuClosed = this.onMenuClosed.bind(this);
+    this.onShowMenuClicked = this.onShowMenuClicked.bind(this);
+    this.onWeblioClicked = this.onWeblioClicked.bind(this);
     this.onClickHome = this.onClickHome.bind(this);
     this.onClickMyZutan = this.onClickMyZutan.bind(this);
   }
@@ -75,21 +116,15 @@ class MyZutan extends Component<any, MyZutanState> {
         }
       })
       words.sort();
-      // wordRows
-      let wordRows: string[][] = [];
       const width = this.props.width;
-      let unit;
+      let cols;
       if (width === 'xs') {
-        unit = 1;
+        cols = 1;
       } else {
-        unit = 3;
+        cols = 3;
       }
-      words.forEach((word, i) => {
-        if (i % unit === 0) {
-          wordRows.push([]);
-        }
-        wordRows[wordRows.length - 1].push(word);
-      });
+      const {anchorEl} = this.state;
+      const bShow = Boolean(anchorEl);
       //
       return (
         <div>
@@ -97,15 +132,67 @@ class MyZutan extends Component<any, MyZutanState> {
             onClickHome={this.onClickHome}
             onClickMyZutan={this.onClickMyZutan} />
           <MyZutanDiv>
-            {
-              wordRows.map((words, i) => (
-                <MyZutanRow
-                  key={i}
-                  words={words}
-                  word2urls={word2urls}>
-                </MyZutanRow>
-              ))
-            }
+            <GridList cols={cols} cellHeight={300} spacing={16}> { words.map((word, i) =>
+              <GridListTile key={word}>
+                <Card raised>
+                  <CardHeader
+                    avatar={
+                      <Avatar aria-label="Word">
+                        {word[0] && word[0].toUpperCase()}
+                      </Avatar>
+                    }
+                    action={
+                      <div>
+                        <IconButton
+                          onClick={this.onShowMenuClicked}>
+                          <MoreVertIcon />
+                        </IconButton>
+                        <MenuList>
+                          <Menu
+                            anchorEl={anchorEl}
+                            anchorOrigin={{
+                              vertical: 'top',
+                              horizontal: 'right',
+                            }}
+                            transformOrigin={{
+                              vertical: 'top',
+                              horizontal: 'right',
+                            }}
+                            open={bShow}
+                            onClose={this.onMenuClosed}
+                          >
+                            <MenuItem onClick={() => {
+                              this.onWeblioClicked(word)
+                            }}>
+                              <ListItemIcon>
+                                <SearchIcon />
+                              </ListItemIcon>
+                              <ListItemText primary="Weblio" />
+                            </MenuItem>
+                            <MenuItem>
+                              <ListItemIcon>
+                                <DeleteIcon />
+                              </ListItemIcon>
+                              <ListItemText primary="Delete (TODO)" />
+                            </MenuItem>
+                          </Menu>
+                        </MenuList>
+                      </div>
+                    }
+                    title={word}
+                  />
+                  <CardContent>
+                    <GridList cols={1.2}>
+                      {word2urls[word].map(url => (
+                        <GridListTile key={url}>
+                          <WordImg src={url} alt={word} />
+                        </GridListTile>
+                      ))}
+                    </GridList>
+                  </CardContent>
+                </Card>
+              </GridListTile> )}
+            </GridList>
           </MyZutanDiv>
         </div>
       );
@@ -146,13 +233,30 @@ class MyZutan extends Component<any, MyZutanState> {
   }
 
   // onClickHome()
-  onClickHome() {
+  private onClickHome() {
     this.props.history.push('/');
   }
 
   // onClickMyZutan()
-  onClickMyZutan() {
+  private onClickMyZutan() {
     this.props.history.push('/myzutan');
+  }
+
+  // onMenuClosed()
+  private onMenuClosed(): void {
+    this.setState({ anchorEl: null });
+  }
+
+  // onShowMenuClicked()
+  // TODO: any -> MouseEvent<HTMLElement> ??
+  private onShowMenuClicked(evt: any): void {
+    this.setState({ anchorEl: evt.currentTarget });
+  }
+
+  // onWeblioClicked()
+  private onWeblioClicked(word: string): void {
+    window.open('https://ejje.weblio.jp/content/' + word);
+    this.onMenuClosed();
   }
 }
 

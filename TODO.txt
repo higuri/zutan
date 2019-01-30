@@ -7,8 +7,10 @@ TODO.txt
 * README
   - how to configure apiKeys.js
   - change package.json: homepage
+* GridListTile
+  - raised
+  - hover animation
 ----
-* Row: fill blank columns
 * MyZutanCard: Delete
 * anonymous login
   - login / logout

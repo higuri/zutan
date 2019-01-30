@@ -37,6 +37,9 @@ class App extends Component<any, AppState> {
     const signInNeeded = isMock ?  false : !this.state.isSignedIn;
     // material-ui
     const generateClassName = createGenerateClassName({
+      // XXX: Without this, the style of <Grid> in SearchResultRow 
+      //      will break in production build.
+      // # cleaner fix needed
       dangerouslyUseGlobalCSS: true
     });
     const jss = create({
