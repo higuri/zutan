@@ -20,8 +20,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import MUISearchIcon from '@material-ui/icons/Search';
-import MUIDeleteIcon from '@material-ui/icons/Delete';
+import SearchIcon from '@material-ui/icons/Search';
+import DeleteIcon from '@material-ui/icons/Delete';
 import * as firebase from 'firebase';
 
 import {mockMyZutanObjects} from './mockData';
@@ -47,15 +47,19 @@ const WordImg = styled.img`
   object-fit: contain;
   object-position: 0 50%;
 `;
-// SearchIcon
-const SearchIcon = styled(MUISearchIcon)`
+// ASearchIcon
+const ASearchIcon = styled(SearchIcon)`
   position: absolute;
   right: 5px;
 ` as any;
-// DeleteIcon
-const DeleteIcon = styled(MUIDeleteIcon)`
+// ADeleteIcon
+const ADeleteIcon = styled(DeleteIcon)`
   position: absolute;
   right: 5px;
+` as any;
+// AGridList
+const AGridList = styled(GridList)`
+  flex-wrap: nowrap;
 ` as any;
 
 // MyZutan
@@ -118,10 +122,16 @@ class MyZutan extends Component<any, MyZutanState> {
       words.sort();
       const width = this.props.width;
       let cols;
-      if (width === 'xs') {
-        cols = 1;
-      } else {
-        cols = 3;
+      switch (width) {
+        case 'xs':
+          cols = 1;
+          break;
+        case 'sm':
+          cols = 3;
+          break;
+        default:
+          cols = 4;
+          break;
       }
       const {anchorEl} = this.state;
       const bShow = Boolean(anchorEl);
@@ -165,13 +175,13 @@ class MyZutan extends Component<any, MyZutanState> {
                               this.onWeblioClicked(word)
                             }}>
                               <ListItemIcon>
-                                <SearchIcon />
+                                <ASearchIcon />
                               </ListItemIcon>
                               <ListItemText primary="Weblio" />
                             </MenuItem>
                             <MenuItem>
                               <ListItemIcon>
-                                <DeleteIcon />
+                                <ADeleteIcon />
                               </ListItemIcon>
                               <ListItemText primary="Delete (TODO)" />
                             </MenuItem>
@@ -182,13 +192,13 @@ class MyZutan extends Component<any, MyZutanState> {
                     title={word}
                   />
                   <CardContent>
-                    <GridList cols={1.2}>
+                    <AGridList cols={1.2}>
                       {word2urls[word].map(url => (
                         <GridListTile key={url}>
                           <WordImg src={url} alt={word} />
                         </GridListTile>
                       ))}
-                    </GridList>
+                    </AGridList>
                   </CardContent>
                 </Card>
               </GridListTile> )}
