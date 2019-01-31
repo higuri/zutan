@@ -13,14 +13,16 @@ const firebaseConfig = {
   projectId: 'zu-tan'
 };
 require("firebase/firestore");
-firebase.initializeApp(firebaseConfig);
-firebase.firestore().settings({
-  timestampsInSnapshots: true
-});
 let isMock = false;
 console.log('process.env.REACT_APP_MOCK: ' + process.env.REACT_APP_MOCK);
 console.log('process.env.PUBLIC_URL: ' + process.env.PUBLIC_URL);
 if (process.env.REACT_APP_MOCK) {
   isMock = true;
+}
+if (!isMock) {
+  firebase.initializeApp(firebaseConfig);
+  firebase.firestore().settings({
+    timestampsInSnapshots: true
+  });
 }
 ReactDOM.render(<App isMock={isMock} />, document.getElementById('root'));

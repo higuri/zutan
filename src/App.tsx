@@ -74,7 +74,9 @@ class App extends Component<any, AppState> {
 
   // componentDidMount()
   componentDidMount() {
-    this.addFirebaseAuthListener();
+    if (!this.props.isMock) {
+      this.addFirebaseAuthListener();
+    }
   }
 
   // addFirebaseAuthListener()
