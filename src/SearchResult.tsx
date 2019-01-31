@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
 import withWidth from '@material-ui/core/withWidth';
-import Card from '@material-ui/core/Card';
+import MUICard from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -26,6 +26,10 @@ const ResultImg = styled.img`
   display: block;
   margin: auto;
 `;
+// Card
+const Card = styled(MUICard)`
+  margin: 10px;
+` as any;
 
 // SearchResultProps
 interface SearchResultProps {
@@ -59,7 +63,7 @@ class SearchResult extends Component<SearchResultProps> {
       <ResultDiv>
         <GridList cols={cols} spacing={16}> { imageURLs.map((url, i) =>
           <GridListTile key={url}>
-            <Card onClick={() => this.props.onImageClicked(i)}>
+            <Card raised onClick={() => this.props.onImageClicked(i)}>
               <CardContent>
                 <ResultImg src={url} />
               </CardContent>
