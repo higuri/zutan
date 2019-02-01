@@ -1,16 +1,16 @@
 {
   "main.css": "/zutan/static/css/main.c6e1d26d.chunk.css",
-  "main.js": "/zutan/static/js/main.e65f403c.chunk.js",
-  "main.js.map": "/zutan/static/js/main.e65f403c.chunk.js.map",
+  "main.js": "/zutan/static/js/main.6f0a68a7.chunk.js",
+  "main.js.map": "/zutan/static/js/main.6f0a68a7.chunk.js.map",
   "static/css/1.b19d0567.chunk.css": "/zutan/static/css/1.b19d0567.chunk.css",
-  "static/js/1.fd9143a7.chunk.js": "/zutan/static/js/1.fd9143a7.chunk.js",
-  "static/js/1.fd9143a7.chunk.js.map": "/zutan/static/js/1.fd9143a7.chunk.js.map",
+  "static/js/1.c4d8732c.chunk.js": "/zutan/static/js/1.c4d8732c.chunk.js",
+  "static/js/1.c4d8732c.chunk.js.map": "/zutan/static/js/1.c4d8732c.chunk.js.map",
   "runtime~main.js": "/zutan/static/js/runtime~main.8bfdf179.js",
   "runtime~main.js.map": "/zutan/static/js/runtime~main.8bfdf179.js.map",
-  "static/css/main.c6e1d26d.chunk.css.map": "/zutan/static/css/main.c6e1d26d.chunk.css.map",
-  "static/media/zutan.svg": "/zutan/static/media/zutan.e200f990.svg",
   "static/css/1.b19d0567.chunk.css.map": "/zutan/static/css/1.b19d0567.chunk.css.map",
+  "static/media/zutan.svg": "/zutan/static/media/zutan.e200f990.svg",
+  "static/css/main.c6e1d26d.chunk.css.map": "/zutan/static/css/main.c6e1d26d.chunk.css.map",
   "index.html": "/zutan/index.html",
-  "precache-manifest.6453f89f2712038703e399e33001725c.js": "/zutan/precache-manifest.6453f89f2712038703e399e33001725c.js",
+  "precache-manifest.bc4a2c5b4222d07795f8bc1dc8a45cc0.js": "/zutan/precache-manifest.bc4a2c5b4222d07795f8bc1dc8a45cc0.js",
   "service-worker.js": "/zutan/service-worker.js"
 }
