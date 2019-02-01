@@ -1,20 +1,18 @@
 TODO.txt
 * Demo Page (gh-pages)
+  - add: non-english zu
+    -> Weblio -> Google ?
   - Demo Page: Card
     onhover: just return result about 'apple'
              click this to view how to setup your own.
              -> .../zutan#howtoconfigure
 * README
   - how to configure apiKeys.js
-  - change package.json: homepage
 * GridListTile
-  - raised
   - hover animation
 ----
 * MyZutanCard: Delete
-* anonymous login
-  - login / logout
-  - AppBar: AccountCircle
+* AppBar: AccountCircle
 * save raw image.
   request img data -> base64
   -> xhr: SOP...

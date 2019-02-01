@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
 import withWidth from '@material-ui/core/withWidth';
-import MUICard from '@material-ui/core/Card';
+import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -22,12 +22,12 @@ const MoreResultsDiv = styled.div`
 `;
 // ResultImg
 const ResultImg = styled.img`
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
-  display: block;
-  margin: auto;
 `;
-// Card
-const Card = styled(MUICard)`
+// ACard
+const ACard = styled(Card)`
   margin: 10px;
 ` as any;
 
@@ -61,13 +61,13 @@ class SearchResult extends Component<SearchResultProps> {
     //
     return (
       <ResultDiv>
-        <GridList cols={cols} spacing={16}> { imageURLs.map((url, i) =>
+        <GridList cols={cols} cellHeight="auto" spacing={16}> { imageURLs.map((url, i) =>
           <GridListTile key={url}>
-            <Card raised onClick={() => this.props.onImageClicked(i)}>
+            <ACard raised onClick={() => this.props.onImageClicked(i)}>
               <CardContent>
                 <ResultImg src={url} />
               </CardContent>
-            </Card>
+            </ACard>
           </GridListTile>)}
         </GridList> { (0 < this.props.imageURLs.length) && 
         <MoreResultsDiv>

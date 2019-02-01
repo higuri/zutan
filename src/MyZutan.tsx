@@ -38,8 +38,11 @@ const ProgressDiv = styled.div`
   display: flex;
   justify-content: center;
 `;
+// ACard
+const ACard = styled(Card)`
+  margin: 15px;
+` as any;
 // WordImg
-// XXX: object-position
 const WordImg = styled.img`
   max-width: 100%;
   max-height: 100%;
@@ -135,6 +138,49 @@ class MyZutan extends Component<any, MyZutanState> {
       }
       const {anchorEl} = this.state;
       const bShow = Boolean(anchorEl);
+      const cardAvatar = (word) => (
+        <Avatar aria-label="Word">
+          {word[0] && word[0].toUpperCase()}
+        </Avatar>
+      );
+      const cardAction = (word) => (
+        <div>
+          <IconButton
+            onClick={this.onShowMenuClicked}>
+            <MoreVertIcon />
+          </IconButton>
+          <MenuList>
+            <Menu
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={bShow}
+              onClose={this.onMenuClosed}
+            >
+              <MenuItem onClick={() => {
+                this.onWeblioClicked(word)
+              }}>
+                <ListItemIcon>
+                  <ASearchIcon />
+                </ListItemIcon>
+                <ListItemText primary="Weblio" />
+              </MenuItem>
+              <MenuItem>
+                <ListItemIcon>
+                  <ADeleteIcon />
+                </ListItemIcon>
+                <ListItemText primary="Delete (TODO)" />
+              </MenuItem>
+            </Menu>
+          </MenuList>
+        </div>
+      );
       //
       return (
         <div>
@@ -142,65 +188,21 @@ class MyZutan extends Component<any, MyZutanState> {
             onClickHome={this.onClickHome}
             onClickMyZutan={this.onClickMyZutan} />
           <MyZutanDiv>
-            <GridList cols={cols} cellHeight={300} spacing={16}> { words.map((word, i) =>
+            <GridList cols={cols} cellHeight="auto" spacing={16}> { words.map((word, i) =>
               <GridListTile key={word}>
-                <Card raised>
+                <ACard raised>
                   <CardHeader
-                    avatar={
-                      <Avatar aria-label="Word">
-                        {word[0] && word[0].toUpperCase()}
-                      </Avatar>
-                    }
-                    action={
-                      <div>
-                        <IconButton
-                          onClick={this.onShowMenuClicked}>
-                          <MoreVertIcon />
-                        </IconButton>
-                        <MenuList>
-                          <Menu
-                            anchorEl={anchorEl}
-                            anchorOrigin={{
-                              vertical: 'top',
-                              horizontal: 'right',
-                            }}
-                            transformOrigin={{
-                              vertical: 'top',
-                              horizontal: 'right',
-                            }}
-                            open={bShow}
-                            onClose={this.onMenuClosed}
-                          >
-                            <MenuItem onClick={() => {
-                              this.onWeblioClicked(word)
-                            }}>
-                              <ListItemIcon>
-                                <ASearchIcon />
-                              </ListItemIcon>
-                              <ListItemText primary="Weblio" />
-                            </MenuItem>
-                            <MenuItem>
-                              <ListItemIcon>
-                                <ADeleteIcon />
-                              </ListItemIcon>
-                              <ListItemText primary="Delete (TODO)" />
-                            </MenuItem>
-                          </Menu>
-                        </MenuList>
-                      </div>
-                    }
-                    title={word}
-                  />
+                    avatar={cardAvatar(word)}
+                    action={cardAction(word)}
+                    title={word} />
                   <CardContent>
-                    <AGridList cols={1.2}>
-                      {word2urls[word].map(url => (
-                        <GridListTile key={url}>
-                          <WordImg src={url} alt={word} />
-                        </GridListTile>
-                      ))}
+                    <AGridList cols={1.2}> {word2urls[word].map(url => (
+                      <GridListTile key={url}>
+                        <WordImg src={url} alt={word} />
+                      </GridListTile> ))}
                     </AGridList>
                   </CardContent>
-                </Card>
+                </ACard>
               </GridListTile> )}
             </GridList>
           </MyZutanDiv>
