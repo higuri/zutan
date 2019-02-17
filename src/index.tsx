@@ -5,10 +5,19 @@ import ReactDOM from 'react-dom';
 import * as firebase from 'firebase';
 import './index.css';
 import App from './App';
-import {GOOGLE_FIREBASE_API_KEY} from './apikeys';
+import * as apikeys from './apikeys';
 
+const apikeysValid = (() => {
+  let retval = true;
+  Object.keys(apikeys).forEach((key) => {
+    if (apikeys[key] === '') {
+      retval = false;
+    }
+  });
+  return retval;
+})();
 const firebaseConfig = {
-  apiKey: GOOGLE_FIREBASE_API_KEY,
+  apiKey: apikeys.GOOGLE_FIREBASE_API_KEY,
   authDomain: 'zu-tan.firebaseapp.com',
   projectId: 'zu-tan'
 };
@@ -20,6 +29,10 @@ if (process.env.REACT_APP_MOCK) {
   isMock = true;
 }
 if (!isMock) {
+  if (!apikeysValid) {
+    console.error('"apikeys.js" is not configured properly. ' +
+      ' Follow the zutan/README.');
+  }
   firebase.initializeApp(firebaseConfig);
   firebase.firestore().settings({
     timestampsInSnapshots: true
