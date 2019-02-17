@@ -56,10 +56,6 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 * [Material-UI][mui-url] - A set of React components 
 * [Google Custom Search][cse-url] - Image Search Engine
 
-## License
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
-
 <!-- Markdown link -->
 [firebase-url]: https://firebase.google.com/
 [react-url]: https://reactjs.org/
