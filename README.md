@@ -14,35 +14,29 @@ https://higuri.github.io/zutan/
 ### Prerequisites
 #### Firebase project
 Create your Firebase project according to [documentation][firebase-url].
-And set obtained keys or values to `FIREBASE_CONFIG` in `config.js`.
+And set obtained keys and IDs to `FIREBASE_CONFIG` in `config.js`.
 ```js
-...
-const firebaseConfig = {
+let FIREBASE_CONFIG = {
   apiKey: 'YOUR_API_KEY_HERE',
   authDomain: 'YOUR_AUTH_DOMAIN_HERE',
   projectId: 'YOUR_PROJECT_ID_HERE'
 };
-...
 ```
 #### Google Custom Search
 Create and configure your Custom Search Engine according to [documentation][gcs-url].
 And set an obtained API key and an engine ID to `config.js`.
 
 ```js
-...
-export const GOOGLE_CUSTOM_SEARCH_API_KEY = 'YOUR_API_KEY_HERE'; 
-export const GOOGLE_CUSTOM_SEARCH_ENGINE_ID = 'YOUR_ENGINE_ID_HERE';
-...
+export let GOOGLE_CUSTOM_SEARCH_API_KEY = 'YOUR_API_KEY_HERE'; 
+export let GOOGLE_CUSTOM_SEARCH_ENGINE_ID = 'YOUR_ENGINE_ID_HERE';
 ```
 
-#### Set your site URL to `package.json`
+### Set your site URL to `package.json`
 ```json
-  ...
   "homepage": "YOUR_SITE_URL_HERE",
-  ...
 ```
 
-#### Install Dependencies
+### Install Dependencies
 ```sh
 yarn install
 ```
