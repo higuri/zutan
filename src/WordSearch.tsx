@@ -13,8 +13,8 @@ import * as firebase from 'firebase';
 
 import AppBar from './AppBar';
 import SearchResult from './SearchResult';
-import {GOOGLE_CUSTOM_SEARCH_API_KEY} from './apikeys';
-import {GOOGLE_CUSTOM_SEARCH_ENGINE_ID} from './apikeys';
+import {GOOGLE_CUSTOM_SEARCH_API_KEY} from './config';
+import {GOOGLE_CUSTOM_SEARCH_ENGINE_ID} from './config';
 import zutanIcon from './images/zutan.svg';
 import {mockSearchResult, mockMyZutanObjects} from './mockData';
 
