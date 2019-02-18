@@ -50,15 +50,17 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 ## Built With
-* [Firebase][firebase-url] - Authentication, Realtime Database
 * [React][react-url] - Building user interfaces
 * [React Router][rrouter-url] - Routing
+* [Firebase][firebase-url] - Authentication, Realtime Database
+* [Google Custom Search][cse-url] - Image search engine
 * [Material-UI][mui-url] - A set of React components 
-* [Google Custom Search][cse-url] - Image Search Engine
+* [Pixels][pix-url] - Sample images for mock version
 
 <!-- Markdown link -->
-[firebase-url]: https://firebase.google.com/
 [react-url]: https://reactjs.org/
 [rrouter-url]: https://github.com/ReactTraining/react-router
+[firebase-url]: https://firebase.google.com/
 [mui-url]: https://material-ui.com/
 [cse-url]: https://developers.google.com/custom-search/
+[pix-url]: https://www.pexels.com/

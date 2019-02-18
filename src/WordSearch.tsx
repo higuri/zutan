@@ -296,9 +296,9 @@ class WordSearch extends Component<any, WordSearchState> {
     // queryText: 
     this.setState({queryText: query});
     // searchResult:
-    const imageURLs = mockSearchResult.map((item) => {
-      return new ImageURL(
-        query, item.full, item.thumb);
+    const imageURLs = mockSearchResult.map((fpath) => {
+      // thumbnail === fullsize
+      return new ImageURL(query, fpath, fpath);
     });
     this.setState({imageURLs: imageURLs});
   }

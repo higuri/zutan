@@ -2,70 +2,43 @@
 
 // mockSearchResult:
 const mockSearchResult = [
-  {
-    thumb: '/mockdata/apple0_thumb.jpg',
-    full: '/mockdata/apple0_full.jpg'
-  },
-  {
-    thumb: '/mockdata/apple1_thumb.png',
-    full: '/mockdata/apple1_full.png'
-  },
-  {
-    thumb: '/mockdata/apple2_thumb.png',
-    full: '/mockdata/apple2_full.jpg'
-  },
-  {
-    thumb: '/mockdata/apple3_thumb.jpg',
-    full: '/mockdata/apple3_full.jpg'
-  },
-  {
-    thumb: '/mockdata/apple4_thumb.png',
-    full: '/mockdata/apple4_full.png'
-  },
-  {
-    thumb: '/mockdata/apple5_thumb.png',
-    full: '/mockdata/apple5_full.jpg'
-  },
-  {
-    thumb: '/mockdata/apple6_thumb.png',
-    full: '/mockdata/apple6_full.png'
-  },
-  {
-    thumb: '/mockdata/apple7_thumb.png',
-    full: '/mockdata/apple7_full.png'
-  },
-  {
-    thumb: '/mockdata/apple8_thumb.png',
-    full: '/mockdata/apple8_full.jpg'
-  },
-  {
-    thumb: '/mockdata/apple9_thumb.png',
-    full: '/mockdata/apple9_full.png'
-  }
-].map(obj => {
-  return {
-    thumb: process.env.PUBLIC_URL + obj.thumb,
-    full: process.env.PUBLIC_URL + obj.full
-  };
-});
+  '/mockdata/apple01.jpg',
+  '/mockdata/apple02.jpg',
+  '/mockdata/apple03.jpg',
+  '/mockdata/apple04.jpg',
+  '/mockdata/apple05.jpg',
+  '/mockdata/apple06.jpg',
+  '/mockdata/apple07.jpg',
+  '/mockdata/apple08.jpg',
+  '/mockdata/apple09.jpg',
+  '/mockdata/apple10.jpg'
+].map(fpath => process.env.PUBLIC_URL + fpath);
 
 // mockMyZutanObjects
 let mockMyZutanObjects = [
   {
-    word: 'rice',
-    imageURL: '/mockdata/rice0_full.jpg'
-  },
-  {
-    word: 'run',
-    imageURL: '/mockdata/run0_full.png'
+    word: 'doggy',
+    imageURL: '/mockdata/doggy01.jpg'
   },
   {
     word: 'doggy',
-    imageURL: '/mockdata/doggy0_full.jpg'
+    imageURL: '/mockdata/doggy02.jpg'
   },
   {
-    word: 'doggy',
-    imageURL: '/mockdata/doggy1_full.jpg'
+    word: '面条',
+    imageURL: '/mockdata/noodle01.jpg'
+  },
+  {
+    word: '面条',
+    imageURL: '/mockdata/noodle02.jpg'
+  },
+  {
+    word: '군중',
+    imageURL: '/mockdata/crowd01.jpg'
+  },
+  {
+    word: '군중',
+    imageURL: '/mockdata/crowd02.jpg'
   }
 ].map(obj => {
   return {

@@ -130,10 +130,10 @@ class MyZutan extends Component<any, MyZutanState> {
           cols = 1;
           break;
         case 'sm':
-          cols = 3;
+          cols = 2;
           break;
         default:
-          cols = 4;
+          cols = 3;
           break;
       }
       const {anchorEl} = this.state;
