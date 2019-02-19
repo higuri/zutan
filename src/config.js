@@ -8,14 +8,14 @@
 //
 
 // Firebase
-export let FIREBASE_CONFIG = {
+export const FIREBASE_CONFIG = {
   apiKey: '',
   authDomain: '',
   projectId: ''
 };
 
 // Google Custom Search API Key
-export let GOOGLE_CUSTOM_SEARCH_API_KEY = '';
+export const GOOGLE_CUSTOM_SEARCH_API_KEY = '';
 
 // Google Custom Search Engine ID
-export let GOOGLE_CUSTOM_SEARCH_ENGINE_ID = '';
+export const GOOGLE_CUSTOM_SEARCH_ENGINE_ID = '';

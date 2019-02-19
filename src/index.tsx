@@ -15,11 +15,8 @@ if (process.env.REACT_APP_MOCK) {
   isMock = true;
 } else {
   require("firebase/firestore");
-  const isValidConfig = (
-    config.GOOGLE_CUSTOM_SEARCH_API_KEY !== '' &&
-    config.GOOGLE_CUSTOM_SEARCH_ENGINE_ID !== '' &&
-    Object.keys(config.FIREBASE_CONFIG).filter(v => v === '').length === 0
-  );
+  // @ts-ignore: will always return 'true' when config.js set.
+  const isValidConfig = (config.GOOGLE_CUSTOM_SEARCH_API_KEY !== '' && config.GOOGLE_CUSTOM_SEARCH_ENGINE_ID !== '' && Object.keys(config.FIREBASE_CONFIG).filter(v => v === '').length === 0);
   if (isValidConfig) {
     firebase.initializeApp(config.FIREBASE_CONFIG);
     firebase.firestore().settings({

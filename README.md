@@ -4,10 +4,11 @@ A vocabulary building web app utilizing images.
 ## Features
 * Search images on the Web by word
 * Save images in your word book
+* Responsive design (desktop/mobile)
 
 ## Demo
 https://higuri.github.io/zutan/
-* Mock Image Search - Always returns same result
+* Mock image search - always returns same result
 * No image saving across sessions
 
 ## Deployment (on your site)
@@ -16,7 +17,7 @@ https://higuri.github.io/zutan/
 Create your Firebase project according to [documentation][firebase-url].
 And set obtained keys and IDs to `FIREBASE_CONFIG` in `config.js`.
 ```js
-let FIREBASE_CONFIG = {
+const FIREBASE_CONFIG = {
   apiKey: 'YOUR_API_KEY_HERE',
   authDomain: 'YOUR_AUTH_DOMAIN_HERE',
   projectId: 'YOUR_PROJECT_ID_HERE'
@@ -27,8 +28,8 @@ Create and configure your Custom Search Engine according to [documentation][gcs-
 And set an obtained API key and an engine ID to `config.js`.
 
 ```js
-export let GOOGLE_CUSTOM_SEARCH_API_KEY = 'YOUR_API_KEY_HERE'; 
-export let GOOGLE_CUSTOM_SEARCH_ENGINE_ID = 'YOUR_ENGINE_ID_HERE';
+export const GOOGLE_CUSTOM_SEARCH_API_KEY = 'YOUR_API_KEY_HERE';
+export const GOOGLE_CUSTOM_SEARCH_ENGINE_ID = 'YOUR_ENGINE_ID_HERE';
 ```
 
 ### Set your site URL to `package.json`
@@ -65,8 +66,8 @@ You can learn more in the [Create React App documentation][crappdoc-url].
 * [React Router][rrouter-url] - Routing
 * [Firebase][firebase-url] - Authentication, Realtime Database
 * [Google Custom Search][cse-url] - Image search engine
-* [Material-UI][mui-url] - A set of React components 
-* [Pixels][pix-url] - Sample images for mock version
+* [Material-UI][mui-url] - A set of React components
+* [Pixels][pix-url] - Sample images for demo version
 
 <!-- Markdown link -->
 [react-url]: https://reactjs.org/

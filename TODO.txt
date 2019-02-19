@@ -1,13 +1,10 @@
 TODO.txt
 * Demo Page (gh-pages)
-  - add: non-english zu
-    -> Weblio -> Google ?
+  - Weblio -> Google ?
   - Demo Page: Card
     onhover: just return result about 'apple'
              click this to view how to setup your own.
              -> .../zutan#howtoconfigure
-* README
-  - how to configure apiKeys.js
 * GridListTile
   - hover animation
 ----
