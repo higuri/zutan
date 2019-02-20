@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import TextField from '@material-ui/core/TextField';
@@ -24,13 +27,12 @@ const LogoImg = styled.img`
   width: 225px;
   margin: 20px auto;
 `;
-// MockVersionDiv
-const MockVersionDiv = styled.div`
-  width: 100%;
+// MockVersionPaper
+const MockVersionPaper = styled(Paper)`
+  width: 230px;
+  margin: 20px auto;
   text-align: center;
-  font-size: 20px;
-  margin-bottom: 20px;
-`;
+` as any;
 // ProgressDiv
 const ProgressDiv = styled.div`
   width: 100%;
@@ -91,6 +93,12 @@ interface WordSearchState {
 }
 class WordSearch extends Component<any, WordSearchState> {
 
+  // DEMO_STRING 
+  private readonly DEMO_STRING =
+    "This is a demo version. " +
+    "In this version, the image search results are always the same. " +
+    "Click here to see how to build a full version.";
+
   // textField
   private textField: any;
 
@@ -106,6 +114,7 @@ class WordSearch extends Component<any, WordSearchState> {
     this.textField = React.createRef();
     this.onTextInputChanged = this.onTextInputChanged.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onDemoVersionPaperClick = this.onDemoVersionPaperClick.bind(this);
     this.onAddButtonClicked = this.onAddButtonClicked.bind(this);
     this.onImageClicked = this.onImageClicked.bind(this);
     this.onMoreResultsClicked = this.onMoreResultsClicked.bind(this);
@@ -131,10 +140,14 @@ class WordSearch extends Component<any, WordSearchState> {
         <LogoImg
           src={zutanIcon}
           alt="logo">
-        </LogoImg>
-        <MockVersionDiv>
-          {isMock ? '--- Mock Version ---' : null}
-        </MockVersionDiv>
+        </LogoImg> {isMock ?
+        <Tooltip title={this.DEMO_STRING}>
+          <MockVersionPaper onClick={this.onDemoVersionPaperClick}>
+            <Typography variant="h6">
+              Demo Version
+            </Typography>
+          </MockVersionPaper>
+        </Tooltip> : null}
         <SearchForm onSubmit={this.onSubmit}>
           <SearchTextField
             autoFocus={true}
@@ -170,6 +183,12 @@ class WordSearch extends Component<any, WordSearchState> {
         </ImageDialog>
       </div>
     );
+  }
+
+  // onDemoVersionPaperClick()
+  onDemoVersionPaperClick(): void {
+    const url = 'https://github.com/higuri/zutan#deployment-on-your-site';
+    window.open(url);
   }
 
   // onSubmit()

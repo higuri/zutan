@@ -274,9 +274,10 @@ class MyZutan extends Component<any, MyZutanState> {
   // onDictionaryClicked()
   private onDictionaryClicked(word: string): void {
     // weblio: for Japanese
-    // window.open('https://ejje.weblio.jp/content/' + word);
+    // const url = 'https://ejje.weblio.jp/content/';
     // Wikitionary
-    window.open('https://en.wiktionary.org/wiki/' + word);
+    const url = 'https://en.wiktionary.org/wiki/';
+    window.open(url + word);
     this.onMenuClosed();
   }
 }
