@@ -1,14 +1,12 @@
 TODO.txt
 * Demo Page (gh-pages)
-  - Weblio -> Google ?
   - Demo Page: Card
     onhover: just return result about 'apple'
              click this to view how to setup your own.
              -> .../zutan#howtoconfigure
+* MyZutanCard: Delete
 * GridListTile
   - hover animation
-----
-* MyZutanCard: Delete
 * AppBar: AccountCircle
 * save raw image.
   request img data -> base64

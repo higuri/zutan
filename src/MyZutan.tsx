@@ -68,8 +68,9 @@ const AGridList = styled(GridList)`
 // MyZutan
 interface MyZutanState {
   zutanObjects: any[];
-  anchorEl: HTMLElement | null;
   isZutanObjectsReady: boolean;
+  showMenuWord: string | null;
+  showMenuElement: HTMLElement | null;
 }
 class MyZutan extends Component<any, MyZutanState> {
 
@@ -79,11 +80,12 @@ class MyZutan extends Component<any, MyZutanState> {
     this.state = {
       zutanObjects: [],
       isZutanObjectsReady: false,
-      anchorEl: null
+      showMenuWord: null,
+      showMenuElement: null
     }
     this.onMenuClosed = this.onMenuClosed.bind(this);
     this.onShowMenuClicked = this.onShowMenuClicked.bind(this);
-    this.onWeblioClicked = this.onWeblioClicked.bind(this);
+    this.onDictionaryClicked = this.onDictionaryClicked.bind(this);
     this.onClickHome = this.onClickHome.bind(this);
     this.onClickMyZutan = this.onClickMyZutan.bind(this);
   }
@@ -136,8 +138,8 @@ class MyZutan extends Component<any, MyZutanState> {
           cols = 3;
           break;
       }
-      const {anchorEl} = this.state;
-      const bShow = Boolean(anchorEl);
+      const {showMenuWord, showMenuElement} = this.state;
+      const bShow = Boolean(showMenuElement);
       const cardAvatar = (word) => (
         <Avatar aria-label="Word">
           {word[0] && word[0].toUpperCase()}
@@ -146,12 +148,12 @@ class MyZutan extends Component<any, MyZutanState> {
       const cardAction = (word) => (
         <div>
           <IconButton
-            onClick={this.onShowMenuClicked}>
+            onClick={(evt) => this.onShowMenuClicked(evt, word)}>
             <MoreVertIcon />
           </IconButton>
           <MenuList>
             <Menu
-              anchorEl={anchorEl}
+              anchorEl={showMenuElement}
               anchorOrigin={{
                 vertical: 'top',
                 horizontal: 'right',
@@ -164,19 +166,20 @@ class MyZutan extends Component<any, MyZutanState> {
               onClose={this.onMenuClosed}
             >
               <MenuItem onClick={() => {
-                this.onWeblioClicked(word)
-              }}>
+                this.onDictionaryClicked(showMenuWord!)}}>
                 <ListItemIcon>
-                  <ASearchIcon />
+                  <SearchIcon />
                 </ListItemIcon>
-                <ListItemText primary="Weblio" />
+                <ListItemText primary="Wikitionary" />
               </MenuItem>
+              {/* TODO
               <MenuItem>
                 <ListItemIcon>
                   <ADeleteIcon />
                 </ListItemIcon>
-                <ListItemText primary="Delete (TODO)" />
+                <ListItemText primary="Delete" />
               </MenuItem>
+              */}
             </Menu>
           </MenuList>
         </div>
@@ -256,18 +259,24 @@ class MyZutan extends Component<any, MyZutanState> {
 
   // onMenuClosed()
   private onMenuClosed(): void {
-    this.setState({ anchorEl: null });
+    this.setState({ showMenuElement: null });
   }
 
   // onShowMenuClicked()
   // TODO: any -> MouseEvent<HTMLElement> ??
-  private onShowMenuClicked(evt: any): void {
-    this.setState({ anchorEl: evt.currentTarget });
+  private onShowMenuClicked(evt: any, word: string): void {
+    this.setState({
+      showMenuWord: word,
+      showMenuElement: evt.currentTarget
+    });
   }
 
-  // onWeblioClicked()
-  private onWeblioClicked(word: string): void {
-    window.open('https://ejje.weblio.jp/content/' + word);
+  // onDictionaryClicked()
+  private onDictionaryClicked(word: string): void {
+    // weblio: for Japanese
+    // window.open('https://ejje.weblio.jp/content/' + word);
+    // Wikitionary
+    window.open('https://en.wiktionary.org/wiki/' + word);
     this.onMenuClosed();
   }
 }

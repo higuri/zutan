@@ -25,11 +25,11 @@ let mockMyZutanObjects = [
     imageURL: '/mockdata/doggy02.jpg'
   },
   {
-    word: '面条',
+    word: '麵條',
     imageURL: '/mockdata/noodle01.jpg'
   },
   {
-    word: '面条',
+    word: '麵條',
     imageURL: '/mockdata/noodle02.jpg'
   },
   {
